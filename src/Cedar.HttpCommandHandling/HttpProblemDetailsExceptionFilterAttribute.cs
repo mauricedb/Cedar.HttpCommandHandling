@@ -1,4 +1,4 @@
-namespace Cedar.Commands
+namespace Cedar.HttpCommandHandling
 {
     using System.Net.Http;
     using System.Net.Http.Formatting;

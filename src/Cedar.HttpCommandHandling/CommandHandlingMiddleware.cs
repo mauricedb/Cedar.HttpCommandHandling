@@ -1,4 +1,4 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
@@ -7,15 +7,11 @@
     using System.Web.Http;
     using System.Web.Http.Dependencies;
     using System.Web.Http.Dispatcher;
-    using Cedar.Serialization;
+    using Cedar.HttpCommandHandling.Serialization;
+    using Cedar.HttpCommandHandling.TinyIoC;
     using CuttingEdge.Conditions;
     using Microsoft.Owin.Builder;
     using Owin;
-    using TinyIoC;
-
-    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, 
-        System.Threading.Tasks.Task
-    >;
     using MidFunc = System.Func<System.Func<System.Collections.Generic.IDictionary<string, object>, 
             System.Threading.Tasks.Task
         >, System.Func<System.Collections.Generic.IDictionary<string, object>, 

@@ -24,13 +24,15 @@
 // SOFTWARE.
 //===============================================================================
 
-namespace Cedar.Logging
+namespace Cedar.HttpCommandHandling.App_Packages.LibLog._1._4
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
-    using Cedar.Logging.LogProviders;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using System.Text;
 
     /// <summary>
     /// Simple interface that represent a logger.
@@ -389,13 +391,13 @@ namespace Cedar.Logging
 
         public static readonly List<Tuple<IsLoggerAvailable, CreateLogProvider>> LogProviderResolvers =
             new List<Tuple<IsLoggerAvailable, CreateLogProvider>>
-        {
-            new Tuple<IsLoggerAvailable, CreateLogProvider>(SerilogLogProvider.IsLoggerAvailable, () => new SerilogLogProvider()),
-            new Tuple<IsLoggerAvailable, CreateLogProvider>(NLogLogProvider.IsLoggerAvailable, () => new NLogLogProvider()),
-            new Tuple<IsLoggerAvailable, CreateLogProvider>(Log4NetLogProvider.IsLoggerAvailable, () => new Log4NetLogProvider()),
-            new Tuple<IsLoggerAvailable, CreateLogProvider>(EntLibLogProvider.IsLoggerAvailable, () => new EntLibLogProvider()),
-            new Tuple<IsLoggerAvailable, CreateLogProvider>(LoupeLogProvider.IsLoggerAvailable, () => new LoupeLogProvider())
-        };
+            {
+                new Tuple<IsLoggerAvailable, CreateLogProvider>(SerilogLogProvider.IsLoggerAvailable, () => new SerilogLogProvider()),
+                new Tuple<IsLoggerAvailable, CreateLogProvider>(NLogLogProvider.IsLoggerAvailable, () => new NLogLogProvider()),
+                new Tuple<IsLoggerAvailable, CreateLogProvider>(Log4NetLogProvider.IsLoggerAvailable, () => new Log4NetLogProvider()),
+                new Tuple<IsLoggerAvailable, CreateLogProvider>(EntLibLogProvider.IsLoggerAvailable, () => new EntLibLogProvider()),
+                new Tuple<IsLoggerAvailable, CreateLogProvider>(LoupeLogProvider.IsLoggerAvailable, () => new LoupeLogProvider())
+            };
 
         private static ILogProvider ResolveLogProvider()
         {
@@ -486,17 +488,6 @@ namespace Cedar.Logging
             _logger.Log(logLevel, wrappedMessageFunc, exception);
         }
     }
-}
-
-namespace Cedar.Logging.LogProviders
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using System.Text;
 
     public class NLogLogProvider : ILogProvider
     {
@@ -1270,10 +1261,10 @@ namespace Cedar.Logging.LogProviders
             Type logWriteModeType = Type.GetType("Gibraltar.Agent.LogWriteMode, Gibraltar.Agent");
 
             MethodInfo method = logManagerType.GetMethod("Write", new[]
-                                                                  {
-                                                                      logMessageSeverityType, typeof(string), typeof(int), typeof(Exception), typeof(bool), 
-                                                                      logWriteModeType, typeof(string), typeof(string), typeof(string), typeof(string), typeof(object[])
-                                                                  });
+            {
+                logMessageSeverityType, typeof(string), typeof(int), typeof(Exception), typeof(bool), 
+                logWriteModeType, typeof(string), typeof(string), typeof(string), typeof(string), typeof(object[])
+            });
 
             var callDelegate = (WriteDelegate)Delegate.CreateDelegate(typeof(WriteDelegate), method);
             return callDelegate;
@@ -1367,13 +1358,13 @@ namespace Cedar.Logging.LogProviders
         {
             MessageFormatter = DefaultMessageFormatter;
             Colors = new Dictionary<LogLevel, ConsoleColor> {
-                        { LogLevel.Fatal, ConsoleColor.Red },
-                        { LogLevel.Error, ConsoleColor.Yellow },
-                        { LogLevel.Warn, ConsoleColor.Magenta },
-                        { LogLevel.Info, ConsoleColor.White },
-                        { LogLevel.Debug, ConsoleColor.Gray },
-                        { LogLevel.Trace, ConsoleColor.DarkGray },
-                    };
+                { LogLevel.Fatal, ConsoleColor.Red },
+                { LogLevel.Error, ConsoleColor.Yellow },
+                { LogLevel.Warn, ConsoleColor.Magenta },
+                { LogLevel.Info, ConsoleColor.White },
+                { LogLevel.Debug, ConsoleColor.Gray },
+                { LogLevel.Trace, ConsoleColor.DarkGray },
+            };
         }
 
         public ILog GetLogger(string name)

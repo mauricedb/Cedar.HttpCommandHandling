@@ -1,4 +1,4 @@
-﻿namespace Cedar.Handlers
+﻿namespace Cedar.HttpCommandHandling.Handlers
 {
     public interface ICreateHandlerBuilder
     {

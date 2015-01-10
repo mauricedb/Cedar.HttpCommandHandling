@@ -1,6 +1,6 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
-    using Cedar.Handlers;
+    using Cedar.HttpCommandHandling.Handlers;
 
     public interface ICommandHandlerResolver
     {

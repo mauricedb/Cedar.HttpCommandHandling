@@ -1,12 +1,11 @@
-﻿// ReSharper disable once CheckNamespace
-namespace Cedar.Commands.Client
+﻿namespace Cedar.HttpCommandHandling.Client
 {
     using System;
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Cedar.Serialization;
+    using Cedar.HttpCommandHandling.Serialization;
     using Newtonsoft.Json;
 
     public static class HttpClientExtensions

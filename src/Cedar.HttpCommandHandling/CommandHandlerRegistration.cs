@@ -1,4 +1,4 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;

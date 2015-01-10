@@ -1,4 +1,4 @@
-namespace Cedar.Commands.TypeResolution
+namespace Cedar.HttpCommandHandling.TypeResolution
 {
     /// <summary>
     ///     Represents a parsed media type. Example, given a media type 'application/vnd.foo.bar.v2+json'

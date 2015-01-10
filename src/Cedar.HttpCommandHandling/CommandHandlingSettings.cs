@@ -1,9 +1,9 @@
-namespace Cedar.Commands
+namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
     using Cedar.Annotations;
-    using Cedar.Commands.TypeResolution;
+    using Cedar.HttpCommandHandling.TypeResolution;
     using CuttingEdge.Conditions;
 
     public class CommandHandlingSettings

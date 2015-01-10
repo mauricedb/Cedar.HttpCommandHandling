@@ -7,7 +7,7 @@
  * type from a key.
  */
 
-namespace Cedar.Example.Commands.CommandVersioning.V1
+namespace Cedar.HttpCommandHandling.Example.Commands.CommandVersioning.V1
 {
     // 1. Version 1 of a command.
     public class Command
@@ -17,7 +17,7 @@ namespace Cedar.Example.Commands.CommandVersioning.V1
 }
 
 
-namespace Cedar.Example.Commands.CommandVersioning.V2
+namespace Cedar.HttpCommandHandling.Example.Commands.CommandVersioning.V2
 {
     // 2. Version 2 of a command where Name has changed to Title
     public class Command
@@ -27,13 +27,13 @@ namespace Cedar.Example.Commands.CommandVersioning.V2
 }
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.Example.Commands.CommandTypeResolution
+namespace Cedar.HttpCommandHandling.Example.Commands.CommandTypeResolution
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Cedar.Commands;
-    using Cedar.Commands.TypeResolution;
+    using Cedar.HttpCommandHandling;
+    using Cedar.HttpCommandHandling.TypeResolution;
 
     public class CommandModule : CommandHandlerModule
     {

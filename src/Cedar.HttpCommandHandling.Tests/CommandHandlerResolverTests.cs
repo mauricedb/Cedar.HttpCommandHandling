@@ -1,7 +1,7 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
     using System.Threading.Tasks;
-    using Cedar.Handlers;
+    using Cedar.HttpCommandHandling.Handlers;
     using FluentAssertions;
     using Xunit;
 
@@ -26,7 +26,5 @@
                     .Handle((_, __) => Task.FromResult(0));
             }
         }
-
-        public class TestCommand { }
     }
 }

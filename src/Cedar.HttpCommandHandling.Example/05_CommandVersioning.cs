@@ -8,11 +8,11 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.Example.Commands.CommandVersioning
+namespace Cedar.HttpCommandHandling.Example.Commands.CommandVersioning
 {
     using System;
     using System.Threading.Tasks;
-    using Cedar.Commands;
+    using Cedar.HttpCommandHandling;
 
     // 1. A number of versions of the same command.
     public class CreateTShirtV1

@@ -1,11 +1,11 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Cedar.Commands.Client;
+    using Cedar.HttpCommandHandling.Client;
     using FluentAssertions;
     using Xunit;
     using Xunit.Extensions;

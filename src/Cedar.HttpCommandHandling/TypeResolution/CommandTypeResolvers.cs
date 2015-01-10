@@ -1,4 +1,4 @@
-namespace Cedar.Commands.TypeResolution
+namespace Cedar.HttpCommandHandling.TypeResolution
 {
     using System;
     using System.Collections.Generic;

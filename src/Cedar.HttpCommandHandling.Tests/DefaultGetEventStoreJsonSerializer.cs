@@ -1,8 +1,8 @@
-﻿namespace Cedar
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.IO;
-    using Cedar.Serialization;
+    using Cedar.HttpCommandHandling.Serialization;
     using Newtonsoft.Json;
 
     internal class DefaultGetEventStoreJsonSerializer : ISerializer

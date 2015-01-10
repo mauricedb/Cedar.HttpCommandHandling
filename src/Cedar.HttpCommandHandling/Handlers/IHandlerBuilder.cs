@@ -1,4 +1,4 @@
-﻿namespace Cedar.Handlers
+﻿namespace Cedar.HttpCommandHandling.Handlers
 {
     /// <summary>
     /// Provides a mechanism to fluently build a message handler pipeline.

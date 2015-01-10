@@ -48,12 +48,12 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Packages\LibLog.1.4\LibLog.cs" />
-    <Compile Include="Commands\HttpProblemDetailsException.cs" />
-    <Compile Include="Commands\HttpProblemDetails.cs" />
+    <Compile Include="HttpProblemDetailsException.cs" />
+    <Compile Include="HttpProblemDetails.cs" />
     <Compile Include="Serialization\DefaultJsonSerializer.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\SerializerExtensions.cs" />
-    <Compile Include="Commands\Client\HttpClientExtensions.cs" />
+    <Compile Include="Client\HttpClientExtensions.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,7 +61,9 @@
     <None Include="Cedar.HttpCommandHandling.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

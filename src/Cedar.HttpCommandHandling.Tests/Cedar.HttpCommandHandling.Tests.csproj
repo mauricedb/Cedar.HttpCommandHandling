@@ -116,15 +116,15 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commands\CommandHandlerModuleTests.cs" />
-    <Compile Include="Commands\CommandHandlerResolverTests.cs" />
-    <Compile Include="Commands\CommandHandlingSettingsTests.cs" />
-    <Compile Include="Commands\CommandTypeResolversTests.cs" />
-    <Compile Include="Commands\ProblemDetailsTests.cs" />
+    <Compile Include="CommandHandlerModuleTests.cs" />
+    <Compile Include="CommandHandlerResolverTests.cs" />
+    <Compile Include="CommandHandlingSettingsTests.cs" />
+    <Compile Include="CommandTypeResolversTests.cs" />
+    <Compile Include="ProblemDetailsTests.cs" />
     <Compile Include="DefaultGetEventStoreJsonSerializer.cs" />
-    <Compile Include="Commands\CommandHandlingTests.cs" />
+    <Compile Include="CommandHandlingTests.cs" />
     <Compile Include="TaskExtensionsTests.cs" />
-    <Compile Include="Commands\CommandHandlingFixture.cs" />
+    <Compile Include="CommandHandlingFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

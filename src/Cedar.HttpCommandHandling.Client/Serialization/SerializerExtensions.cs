@@ -1,4 +1,4 @@
-namespace Cedar.Serialization
+namespace Cedar.HttpCommandHandling.Serialization
 {
     using System;
     using System.IO;

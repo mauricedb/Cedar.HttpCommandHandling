@@ -1,8 +1,8 @@
-﻿namespace Cedar.Commands
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
-    using Cedar.Handlers;
+    using Cedar.HttpCommandHandling.Handlers;
 
     public class CommandHandlerModule
     {

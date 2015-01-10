@@ -4,10 +4,10 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.Example.Commands.Piping
+namespace Cedar.HttpCommandHandling.Example.Commands.Piping
 {
     using System.Threading.Tasks;
-    using Cedar.Commands;
+    using Cedar.HttpCommandHandling;
 
     public class Command
     {}
