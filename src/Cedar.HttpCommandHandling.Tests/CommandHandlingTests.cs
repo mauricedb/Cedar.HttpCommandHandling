@@ -1,12 +1,14 @@
 ﻿namespace Cedar.HttpCommandHandling
 {
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling.Client;
     using FluentAssertions;
+    using FluentAssertions.Specialized;
     using Xunit;
     using Xunit.Extensions;
 
@@ -15,35 +17,58 @@
         private CommandHandlingFixture _fixture;
 
         [Fact]
-        public void When_execute_valid_command_then_should_not_throw()
+        public void When_put_valid_command_then_should_not_throw()
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid(), string.Empty);
+                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid());
 
                 act.ShouldNotThrow();
             }
         }
 
         [Fact]
-        public void When_execute_command_whose_handler_throws_standard_exception_then_should_throw()
+        public async Task When_put_valid_command_then_shoule_receive_the_command()
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid(), string.Empty);
+                var commandId = Guid.NewGuid();
+                await client.PutCommand(new TestCommand(), commandId);
+                var receivedCommand = _fixture.ReceivedCommands.Single();
+                var commandMessage = (CommandMessage<TestCommand>)receivedCommand;
+
+                commandMessage.Command.Should().BeOfType<TestCommand>();
+                commandMessage.Command.Should().NotBeNull();
+                commandMessage.CommandId.Should().Be(commandId);
+                commandMessage.User.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void When_put_command_whose_handler_throws_standard_exception_then_should_throw()
+        {
+            using (var client = _fixture.CreateHttpClient())
+            {
+                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid());
 
                 act.ShouldThrow<HttpRequestException>();
             }
         }
 
         [Fact]
-        public void When_execute_command_whose_handler_throws_http_problem_details_exception_then_should_throw()
+        public void When_put_command_whose_handler_throws_http_problem_details_exception_then_should_throw()
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid(), string.Empty);
+                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid());
 
-                act.ShouldThrow<HttpProblemDetailsException>();
+                var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
+
+                exception.ProblemDetails.Should().NotBeNull();
+                exception.ProblemDetails.Instance.Should().NotBeNull();
+                exception.ProblemDetails.Detail.Should().NotBeNull();
+                exception.ProblemDetails.Title.Should().NotBeNull();
+                exception.ProblemDetails.Type.Should().NotBeNull();
             }
         }
 

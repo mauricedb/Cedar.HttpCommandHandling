@@ -10,12 +10,17 @@ namespace Cedar.HttpCommandHandling
     public class CommandHandlingFixture
     {
         private readonly Func<Func<IDictionary<string, object>, Task>, Func<IDictionary<string, object>, Task>> _midFunc;
+        private readonly List<object> _receivedCommands = new List<object>();
 
         public CommandHandlingFixture()
         {
             var module = new CommandHandlerModule();
             module.For<TestCommand>()
-                .Handle((_, __) => Task.FromResult(0));
+                .Handle((commandMessage, _) =>
+                {
+                    _receivedCommands.Add(commandMessage);
+                    return Task.FromResult(0);
+                });
             module.For<TestCommandWhoseHandlerThrowsStandardException>()
                 .Handle((_, __) => { throw new InvalidOperationException(); });
             module.For<TestCommandWhoseHandlerThrowProblemDetailsException>()
@@ -40,6 +45,11 @@ namespace Cedar.HttpCommandHandling
             };
 
             _midFunc = CommandHandlingMiddleware.HandleCommands(commandHandlingSettings);
+        }
+
+        public List<object> ReceivedCommands
+        {
+            get { return _receivedCommands; }
         }
 
         private static HttpProblemDetails CreateProblemDetails(Exception ex)

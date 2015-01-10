@@ -10,6 +10,11 @@
 
     public static class HttpClientExtensions
     {
+        public static Task PutCommand(this HttpClient client, object command, Guid commandId)
+        {
+            return PutCommand(client, command, commandId, string.Empty);
+        }
+
         public static async Task PutCommand(this HttpClient client, object command, Guid commandId, string basePath)
         {
             var request = CreatePutRequest(command, commandId, basePath);
