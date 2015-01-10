@@ -32,7 +32,7 @@ task Compile {
 task RunTests -depends Compile {
 	$xunitRunner = "$srcDir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
 
-	.$xunitRunner "$srcDir\Cedar.Tests\bin\Release\Cedar.Tests.dll" /html "$reportsDir\xUnit\$project\index.html"
+	.$xunitRunner "$srcDir\Cedar.CommandHandling.Tests\bin\Release\Cedar.CommandHandling.Tests.dll" /html "$reportsDir\xUnit\$project\index.html"
 }
 
 task ILMerge -depends Compile {
