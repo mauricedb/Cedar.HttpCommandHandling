@@ -19,7 +19,7 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.ExecuteCommand(new TestCommand(), Guid.NewGuid(), string.Empty);
+                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid(), string.Empty);
 
                 act.ShouldNotThrow();
             }
@@ -30,7 +30,7 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.ExecuteCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid(), string.Empty);
+                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid(), string.Empty);
 
                 act.ShouldThrow<HttpRequestException>();
             }
@@ -41,7 +41,7 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.ExecuteCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid(), string.Empty);
+                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid(), string.Empty);
 
                 act.ShouldThrow<HttpProblemDetailsException>();
             }
@@ -52,7 +52,7 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.ExecuteCommand(new TestCommand(), Guid.NewGuid(), "notfoundpath");
+                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid(), "notfoundpath");
 
                 act.ShouldThrow<HttpRequestException>();
             }

@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Cedar</id>
+        <id>Cedar.HttpCommandHandling</id>
         <version>0.0.0.0</version>
         <authors>Damian Hickey</authors>
         <owners>Damian Hickey</owners>
-        <projectUrl>https://github.com/damianh/Cedar</projectUrl>
-        <licenseUrl>https://github.com/damianh/Cedar/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/damianh/Cedar.HttpCommandHandling</projectUrl>
+        <licenseUrl>https://github.com/damianh/Cedar.HttpCommandHandling/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <title>Cedar</title>
-        <description>An opinionated library to assist in building CQRS and Event Sourced applications on NEventStore</description>
+        <title>Cedar.HttpCommandHandling</title>
+        <description>
+            A library to assist is handling commands sent over HTTP. Typically used in CQS and CQRS applications. Supports HTTP Problem Details.
+        </description>
         <tags>cqrs event-sourcing domain-driven-design</tags>
         <frameworkAssemblies />
         <releaseNotes/>

@@ -5,14 +5,13 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Cedar.HttpCommandHandling.Serialization;
+    using Cedar.HttpCommandHandling.Internal;
     using Newtonsoft.Json;
 
     public static class HttpClientExtensions
     {
-        public static async Task ExecuteCommand(this HttpClient client, object command, Guid commandId, string basePath)
+        public static async Task PutCommand(this HttpClient client, object command, Guid commandId, string basePath)
         {
-            
             var request = CreatePutRequest(command, commandId, basePath);
 
             HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);

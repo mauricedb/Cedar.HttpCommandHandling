@@ -5,7 +5,7 @@
     using FluentAssertions;
     using Xunit;
 
-    public class ProblemDetailsTests
+    public class HttpProblemDetailsTests
     {
         [Fact]
         public void Can_create_exception_with_status_code()
@@ -33,12 +33,6 @@
             Action act = () => sut.Instance = new Uri("/relateive", UriKind.Relative);
 
             act.ShouldThrow<InvalidOperationException>();
-        }
-
-        [Fact]
-        public void Can_json_serialize_and_deserialize()
-        {
-            
         }
     }
 }

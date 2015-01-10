@@ -27,5 +27,4 @@
       <TestName>Cedar.Testing.ScenarioRunnerAcceptanceTests.can_run_tests_from_separate_app_domain</TestName>
     </NamedTestSelector>
   </IgnoredTests>
-  <AdditionalFilesToInclude>..\packages\EventStore.Client.Embedded.3.0.1\native\**.*;..\packages\EventStore.Client.Embedded.3.0.1\prelude\**.*</AdditionalFilesToInclude>
 </ProjectConfiguration>

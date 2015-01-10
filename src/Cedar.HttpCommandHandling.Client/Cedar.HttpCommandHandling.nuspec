@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Cedar.Client</id>
+        <id>Cedar.HttpCommandHandling.Client</id>
         <version>0.0.0.0</version>
         <authors>Damian Hickey</authors>
         <owners>Damian Hickey</owners>
@@ -9,17 +9,18 @@
         <licenseUrl>https://github.com/damianh/Cedar/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <title>Cedar Client</title>
-        <description>An opinionated library to assist in building CQRS and Event Sourced applications on NEventStore. This is the client library to assist in invoking commands and other operations remotely and embedded.</description>
-        <tags>cqrs event-sourcing domain-driven-design</tags>
+        <description>
+            A library to assist is sendig commands sent over HTTP. Typically used in CQS and CQRS applications. Supports HTTP Problem Details.
+        </description><tags>cqrs event-sourcing domain-driven-design</tags>
         <frameworkAssemblies>
-			<frameworkAssembly assemblyName="System.Net.Http"/>
-		</frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Net.Http"/>
+        </frameworkAssemblies>
         <releaseNotes/>
-		<dependencies/>
+        <dependencies/>
     </metadata>
     <files>
-        <file src="..\..\build\merged\Cedar.Client.dll" target="lib\net45" />
-        <file src="..\..\build\merged\Cedar.Client.pdb" target="lib\net45" />
-        <file src="bin\Release\Cedar.Client.xml" target="lib\net45" />
+        <file src="..\..\build\merged\Cedar.HttpCommandHandling.Client.dll" target="lib\net45" />
+        <file src="..\..\build\merged\Cedar.HttpCommandHandling.Client.pdb" target="lib\net45" />
+        <file src="bin\Release\Cedar.HttpCommandHandling.Client.xml" target="lib\net45" />
     </files>
 </package>

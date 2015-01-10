@@ -2,10 +2,9 @@
 {
     using System;
     using System.IO;
-    using Cedar.HttpCommandHandling.Serialization;
     using Newtonsoft.Json;
 
-    internal class DefaultGetEventStoreJsonSerializer : ISerializer
+    internal class DefaultGetEventStoreJsonSerializer
     {
         private readonly JsonSerializer _jsonSerializer;
 

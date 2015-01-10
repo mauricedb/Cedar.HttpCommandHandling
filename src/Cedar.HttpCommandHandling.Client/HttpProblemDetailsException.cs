@@ -9,7 +9,6 @@
     /// </summary>
     public class HttpProblemDetailsException : Exception
     {
-        
         private readonly HttpProblemDetails _problemDetails;
 
         /// <summary>
