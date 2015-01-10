@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling.Client;
     using FluentAssertions;
-    using FluentAssertions.Specialized;
     using Xunit;
     using Xunit.Extensions;
 
