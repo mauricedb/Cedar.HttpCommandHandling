@@ -1,0 +1,31 @@
+<ProjectConfiguration>
+  <BuildPriority>1000</BuildPriority>
+  <CopyReferencedAssembliesToWorkspace>false</CopyReferencedAssembliesToWorkspace>
+  <ConsiderInconclusiveTestsAsPassing>false</ConsiderInconclusiveTestsAsPassing>
+  <PreloadReferencedAssemblies>false</PreloadReferencedAssemblies>
+  <AllowDynamicCodeContractChecking>true</AllowDynamicCodeContractChecking>
+  <AllowStaticCodeContractChecking>false</AllowStaticCodeContractChecking>
+  <AllowCodeAnalysis>false</AllowCodeAnalysis>
+  <IgnoreThisComponentCompletely>false</IgnoreThisComponentCompletely>
+  <RunPreBuildEvents>false</RunPreBuildEvents>
+  <RunPostBuildEvents>false</RunPostBuildEvents>
+  <PreviouslyBuiltSuccessfully>true</PreviouslyBuiltSuccessfully>
+  <InstrumentAssembly>true</InstrumentAssembly>
+  <PreventSigningOfAssembly>false</PreventSigningOfAssembly>
+  <AnalyseExecutionTimes>true</AnalyseExecutionTimes>
+  <DetectStackOverflow>true</DetectStackOverflow>
+  <IncludeStaticReferencesInWorkspace>true</IncludeStaticReferencesInWorkspace>
+  <DefaultTestTimeout>60000</DefaultTestTimeout>
+  <UseBuildConfiguration></UseBuildConfiguration>
+  <UseBuildPlatform></UseBuildPlatform>
+  <ProxyProcessPath></ProxyProcessPath>
+  <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
+  <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
+  <BuildProcessArchitecture>x86</BuildProcessArchitecture>
+  <IgnoredTests>
+    <NamedTestSelector>
+      <TestName>Cedar.Testing.ScenarioRunnerAcceptanceTests.can_run_tests_from_separate_app_domain</TestName>
+    </NamedTestSelector>
+  </IgnoredTests>
+  <AdditionalFilesToInclude>..\packages\EventStore.Client.Embedded.3.0.1\native\**.*;..\packages\EventStore.Client.Embedded.3.0.1\prelude\**.*</AdditionalFilesToInclude>
+</ProjectConfiguration>
