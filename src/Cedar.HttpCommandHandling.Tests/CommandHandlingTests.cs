@@ -33,7 +33,7 @@
             {
                 var commandId = Guid.NewGuid();
                 await client.PutCommand(new TestCommand(), commandId);
-                var receivedCommand = _fixture.ReceivedCommands.Single();
+                var receivedCommand = _fixture.ReceivedCommands.Last();
                 var commandMessage = (CommandMessage<TestCommand>)receivedCommand;
 
                 commandMessage.Command.Should().BeOfType<TestCommand>();
