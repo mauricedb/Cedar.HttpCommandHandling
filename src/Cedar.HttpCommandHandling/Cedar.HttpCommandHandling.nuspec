@@ -8,7 +8,7 @@
         <projectUrl>https://github.com/damianh/Cedar.HttpCommandHandling</projectUrl>
         <licenseUrl>https://github.com/damianh/Cedar.HttpCommandHandling/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <title>Cedar.HttpCommandHandling</title>
+        <title>Cedar - Http Command Handling Middleware</title>
         <description>
             A library to assist is handling commands sent over HTTP. Typically used in CQS and CQRS applications. Supports HTTP Problem Details.
         </description>
