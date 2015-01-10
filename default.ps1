@@ -39,7 +39,7 @@ task ILMerge -depends Compile {
 	New-Item $mergedDir -Type Directory -ErrorAction SilentlyContinue
 
 	$dllDir = "$srcDir\Cedar.HttpCommandHandling.Client\bin\Release"
-	$inputDlls = "$dllDir\Cedar.Client.dll "
+	$inputDlls = "$dllDir\Cedar.HttpCommandHandling.Client.dll "
 	@("Newtonsoft.Json") |% { $inputDlls = "$inputDlls $dllDir\$_.dll" }
 	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /log /out:$mergedDir\Cedar.HttpCommandHandling.Client.dll $inputDlls"
 
