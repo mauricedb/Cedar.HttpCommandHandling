@@ -67,22 +67,20 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CommandController.cs" />
+    <Compile Include="CommandHandlerController.cs" />
     <Compile Include="CommandHandlerModule.cs" />
     <Compile Include="CommandHandlerResolver.cs" />
     <Compile Include="CommandHandlingSettings.cs" />
     <Compile Include="CreateProblemDetails.cs" />
-    <Compile Include="Handlers\HandlerModule.cs" />
-    <Compile Include="Handlers\HandlerModuleExtensions.cs" />
+    <Compile Include="Handler.cs" />
+    <Compile Include="Pipe.cs" />
     <Compile Include="HttpProblemDetailsExceptionFilterAttribute.cs" />
     <Compile Include="TypeResolution\CommandTypeResolvers.cs" />
     <Compile Include="CommandHandlerRegistration.cs" />
     <Compile Include="ICommandHandlerResolver.cs" />
     <Compile Include="TypeResolution\IParsedMediaType.cs" />
     <Compile Include="TypeResolution\ITypeResolver.cs" />
-    <Compile Include="Handlers\ICreateHandlerBuilder.cs" />
-    <Compile Include="Handlers\IHandlerBuilder.cs" />
-    <Compile Include="Handlers\IHandlerResolver.cs" />
+    <Compile Include="ICommandHandlerBuilder.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="CommandHandlingMiddleware.cs" />

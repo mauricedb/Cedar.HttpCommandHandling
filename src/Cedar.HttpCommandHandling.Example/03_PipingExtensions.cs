@@ -9,7 +9,6 @@ namespace Cedar.HttpCommandHandling.Example.Commands.PipingExtensions
     using System;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling;
-    using Cedar.HttpCommandHandling.Handlers;
 
     public class Command1
     {}
@@ -23,11 +22,11 @@ namespace Cedar.HttpCommandHandling.Example.Commands.PipingExtensions
     {
         // 3. Example pipeline that ensures the user is authorized by 
         // checking their role.
-        internal static IHandlerBuilder<CommandMessage<TMessage>> RequireRole<TMessage>(
-            this IHandlerBuilder<CommandMessage<TMessage>> handlerBuilder,
+        internal static ICommandHandlerBuilder<CommandMessage<TMessage>> RequireRole<TMessage>(
+            this ICommandHandlerBuilder<CommandMessage<TMessage>> commandHandlerBuilder,
             string role)
         {
-            return handlerBuilder.Pipe(next => (commandMessage, ct) =>
+            return commandHandlerBuilder.Pipe(next => (commandMessage, ct) =>
             {
                 if(!commandMessage.User.IsInRole(role))
                 {

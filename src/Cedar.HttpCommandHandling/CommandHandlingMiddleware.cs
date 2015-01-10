@@ -94,7 +94,7 @@
 
             public ICollection<Type> GetControllerTypes(IAssembliesResolver _)
             {
-                return new[] { typeof(CommandController) };
+                return new[] { typeof(CommandHandlerController) };
             }
         }
     }

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Cedar.HttpCommandHandling.Handlers;
 
     public class CommandHandlerModule
     {
@@ -14,10 +13,10 @@
             get { return _handlerRegistrations; }
         }
 
-        public IHandlerBuilder<CommandMessage<TCommand>> For<TCommand>()
+        public ICommandHandlerBuilder<CommandMessage<TCommand>> For<TCommand>()
             where TCommand : class
         {
-            return new HandlerBuilder<TCommand>(handlerRegistration =>
+            return new CommandHandlerBuilder<TCommand>(handlerRegistration =>
             {
                 if(!_handlerRegistrations.Add(handlerRegistration))
                 {
@@ -27,18 +26,18 @@
             });
         }
 
-        private class HandlerBuilder<TCommand> : IHandlerBuilder<CommandMessage<TCommand>>
+        private class CommandHandlerBuilder<TCommand> : ICommandHandlerBuilder<CommandMessage<TCommand>>
             where TCommand : class
         {
             private readonly Stack<Pipe<CommandMessage<TCommand>>> _pipes = new Stack<Pipe<CommandMessage<TCommand>>>();
             private readonly Action<CommandHandlerRegistration> _registerHandler;
 
-            internal HandlerBuilder(Action<CommandHandlerRegistration> registerHandler)
+            internal CommandHandlerBuilder(Action<CommandHandlerRegistration> registerHandler)
             {
                 _registerHandler = registerHandler;
             }
 
-            public IHandlerBuilder<CommandMessage<TCommand>> Pipe(Pipe<CommandMessage<TCommand>> pipe)
+            public ICommandHandlerBuilder<CommandMessage<TCommand>> Pipe(Pipe<CommandMessage<TCommand>> pipe)
             {
                 _pipes.Push(pipe);
                 return this;

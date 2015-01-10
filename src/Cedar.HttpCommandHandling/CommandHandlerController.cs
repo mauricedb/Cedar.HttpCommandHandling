@@ -13,14 +13,14 @@ namespace Cedar.HttpCommandHandling
     using Cedar.HttpCommandHandling.Serialization;
     using Cedar.HttpCommandHandling.TypeResolution;
 
-    internal class CommandController : ApiController
+    internal class CommandHandlerController : ApiController
     {
-        internal static readonly MethodInfo DispatchCommandMethodInfo = typeof(CommandController)
+        internal static readonly MethodInfo DispatchCommandMethodInfo = typeof(CommandHandlerController)
             .GetMethod("DispatchCommand", BindingFlags.Static | BindingFlags.NonPublic);
 
         private readonly CommandHandlingSettings _settings;
 
-        public CommandController(CommandHandlingSettings settings)
+        public CommandHandlerController(CommandHandlingSettings settings)
         {
             _settings = settings;
         }

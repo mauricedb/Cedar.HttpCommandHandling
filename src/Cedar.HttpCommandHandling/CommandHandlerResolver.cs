@@ -2,7 +2,6 @@ namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
-    using Cedar.HttpCommandHandling.Handlers;
     using Cedar.HttpCommandHandling.TinyIoC;
 
     public class CommandHandlerResolver : ICommandHandlerResolver
