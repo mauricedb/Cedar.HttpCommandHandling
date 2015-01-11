@@ -36,15 +36,21 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.25.1\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="06_Testing.cs" />
+    <Compile Include="06_UnitTestingHandlers.cs" />
     <Compile Include="05_CommandVersioning.cs" />
     <Compile Include="04_CommandTypeResolution.cs" />
     <Compile Include="02_Piping.cs" />
