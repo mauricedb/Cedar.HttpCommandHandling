@@ -39,9 +39,13 @@
     <Reference Include="FakeItEasy">
       <HintPath>..\packages\FakeItEasy.1.25.1\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="OwinHttpMessageHandler">
+      <HintPath>..\packages\OwinHttpMessageHandler.1.1.0\lib\net45\OwinHttpMessageHandler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="xunit">
       <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
     </Reference>
@@ -50,6 +54,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="07_Embedded.cs" />
     <Compile Include="06_UnitTestingHandlers.cs" />
     <Compile Include="05_CommandVersioning.cs" />
     <Compile Include="04_CommandTypeResolution.cs" />
@@ -59,9 +64,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cedar.HttpCommandHandling.Client\Cedar.HttpCommandHandling.Client.csproj">
+      <Project>{772D0367-FF5A-430C-BC63-A40F5E48F247}</Project>
+      <Name>Cedar.HttpCommandHandling.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cedar.HttpCommandHandling\Cedar.HttpCommandHandling.csproj">
       <Project>{DCFCD369-4580-42D4-8F26-A071B9D17680}</Project>
       <Name>Cedar.HttpCommandHandling</Name>

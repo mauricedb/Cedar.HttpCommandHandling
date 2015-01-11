@@ -19,8 +19,16 @@
         >
     >;
 
+    /// <summary>
+    ///     Middleware to handle commands.
+    /// </summary>
     public static class CommandHandlingMiddleware
     {
+        /// <summary>
+        ///     Creats a command handling middlware.
+        /// </summary>
+        /// <param name="settings">Settings to configure the middleware.</param>
+        /// <returns>An owin middleware function (MidFunc) that represents </returns>
         public static MidFunc HandleCommands(CommandHandlingSettings settings)
         {
             Condition.Requires(settings, "settings").IsNotNull();
