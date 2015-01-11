@@ -9,6 +9,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
     using System;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling;
+    using Microsoft.Owin.Hosting;
 
     // 1. Simple command.
     public class Command
@@ -37,29 +38,28 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
         }
     }
 
-    public class Startup
-    {
-        
-    }
-
-    // 4. Wire it up
+    // 4. Host it.
     public class Program
     {
         static void Main()
         {
             Func<IFoo> getFoo = () => new DummyFoo();
-
             var resolver = new CommandHandlerResolver(new CommandModule(getFoo));
             var settings = new CommandHandlingSettings(resolver);
+            var commandHandlingMiddleware = CommandHandlingMiddleware.HandleCommands(settings);
 
-            var midFunc = CommandHandlingMiddleware.HandleCommands(settings);
-
-            // 5. Add the midFunc to your owin pipeline
+            // 5. Add the middleware to your owin pipeline
+            using(WebApp.Start("http://localhost:8080",
+                app =>
+                {
+                    app.Use(commandHandlingMiddleware);
+                }))
+            {
+                Console.WriteLine("Press any key");
+            }
         }
 
-        
-
-        private class DummyFoo : IFoo 
+        private class DummyFoo : IFoo
         {
             public Task Bar()
             {
