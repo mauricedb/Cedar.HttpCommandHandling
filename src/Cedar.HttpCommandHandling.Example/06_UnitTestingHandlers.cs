@@ -40,7 +40,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.UnitTestinHandlers
         [Fact]
         public void Command_should_call_service()
         {
-            string name = "jrustle";
+            const string name = "jrustle";
             var foo = A.Fake<IFoo>();
             A.CallTo(() => foo.Bar(name));
             var sut = new CommandHandlerResolver(new CommandModule(() => foo));
