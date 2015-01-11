@@ -8,7 +8,7 @@
         <projectUrl>https://github.com/damianh/Cedar</projectUrl>
         <licenseUrl>https://github.com/damianh/Cedar/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <title>Cedar - Http Command Handling Client</title>
+        <title>Cedar - HTTP Command Handling Client</title>
         <description>
             A library to assist is sendig commands sent over HTTP. Typically used in CQS and CQRS applications. Supports HTTP Problem Details.
         </description><tags>cqrs event-sourcing domain-driven-design</tags>
