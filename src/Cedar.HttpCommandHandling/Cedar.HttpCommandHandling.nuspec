@@ -12,7 +12,7 @@
         <description>
             A library to assist is handling commands sent over HTTP. Typically used in CQS and CQRS applications. Supports HTTP Problem Details.
         </description>
-        <tags>cqrs event-sourcing domain-driven-design</tags>
+        <tags>cqrs event-sourcing domain-driven-design owin middleware</tags>
         <frameworkAssemblies />
         <releaseNotes/>
         <dependencies>
