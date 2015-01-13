@@ -5,7 +5,6 @@ namespace Cedar.HttpCommandHandling
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Microsoft.Owin;
 
     public class CommandHandlingFixture
     {
@@ -68,22 +67,7 @@ namespace Cedar.HttpCommandHandling
 
         public HttpClient CreateHttpClient()
         {
-            return CreateHttpClient(env =>
-            {
-                var context = new OwinContext(env);
-                context.Response.StatusCode = 404;
-                context.Response.ReasonPhrase = "Not Found";
-                return Task.FromResult(0);
-            });
-        }
-
-        public HttpClient CreateHttpClient(Func<IDictionary<string, object>, Task> next)
-        {
-            var appFunc = _midFunc(next);
-            return new HttpClient(new OwinHttpMessageHandler(appFunc))
-            {
-                BaseAddress = new Uri("http://localhost")
-            };
+            return _midFunc.CreateEmbeddedClient();
         }
     }
 

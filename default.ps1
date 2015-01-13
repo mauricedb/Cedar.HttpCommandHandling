@@ -45,7 +45,7 @@ task ILMerge -depends Compile {
 
 	$dllDir = "$srcDir\Cedar.HttpCommandHandling\bin\Release"
 	$inputDlls = "$dllDir\Cedar.HttpCommandHandling.dll"
-	@("CuttingEdge.Conditions", "Microsoft.Owin", "Newtonsoft.Json", "Owin", "System.Net.Http.Formatting", "System.Web.Http",`
+	@("CuttingEdge.Conditions", "Microsoft.Owin", "Newtonsoft.Json", "Owin", "OwinHttpMessageHandler", "System.Net.Http.Formatting", "System.Web.Http",`
 		"System.Web.Http.Owin") |% { $inputDlls = "$inputDlls $dllDir\$_.dll" }
 	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /log /out:$mergedDir\Cedar.HttpCommandHandling.dll $inputDlls"
 }

@@ -49,6 +49,9 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="OwinHttpMessageHandler">
+      <HintPath>..\packages\OwinHttpMessageHandler.1.1.0\lib\net45\OwinHttpMessageHandler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -74,6 +77,7 @@
     <Compile Include="CommandHandlingSettings.cs" />
     <Compile Include="CreateProblemDetails.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="MidFuncExtensions.cs" />
     <Compile Include="Pipe.cs" />
     <Compile Include="HttpProblemDetailsExceptionFilterAttribute.cs" />
     <Compile Include="TypeResolution\CommandTypeResolvers.cs" />
