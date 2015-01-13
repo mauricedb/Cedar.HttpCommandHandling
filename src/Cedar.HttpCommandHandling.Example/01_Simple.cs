@@ -11,15 +11,20 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
     using Cedar.HttpCommandHandling;
     using Microsoft.Owin.Hosting;
 
-    // 1. Simple command.
-    public class Command
+    // 1. Simple commands.
+    public class CommandSyncHandler
     {}
 
+    public class CommandAsyncHandler
+    { }
 
-    // 2. A service a command handler depends on.
+
+    // 2. A service the command handlers depends.
     public interface IFoo
     {
-        Task Bar();
+        void Bar();
+
+        Task BarAsync();
     }
 
     // 3. Define your handlers.
@@ -29,11 +34,14 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
         // should be injected as factory methods / funcs.
         public CommandModule(Func<IFoo> getFoo)
         {
-            For<Command>()
+            For<CommandSyncHandler>()
+                .Handle(commandMessage => getFoo().Bar());
+
+            For<CommandAsyncHandler>()
                 .Handle(async (commandMessage, ct) =>
                 {
                     var foo = getFoo();
-                    await foo.Bar();
+                    await foo.BarAsync();
                 });
         }
     }
@@ -61,7 +69,12 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
 
         private class DummyFoo : IFoo
         {
-            public Task Bar()
+            public Task BarAsync()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IFoo.Bar()
             {
                 throw new NotImplementedException();
             }

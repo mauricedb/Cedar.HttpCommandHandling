@@ -77,6 +77,8 @@
     <Compile Include="CommandHandlingSettings.cs" />
     <Compile Include="CreateProblemDetails.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="CommandHandlerBuilderExtensions.cs" />
+    <Compile Include="HandlerSync.cs" />
     <Compile Include="MidFuncExtensions.cs" />
     <Compile Include="Pipe.cs" />
     <Compile Include="HttpProblemDetailsExceptionFilterAttribute.cs" />

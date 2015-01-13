@@ -15,13 +15,12 @@ namespace Cedar.HttpCommandHandling
         {
             var module = new CommandHandlerModule();
             module.For<TestCommand>()
-                .Handle((commandMessage, _) =>
+                .Handle(commandMessage =>
                 {
                     _receivedCommands.Add(commandMessage);
-                    return Task.FromResult(0);
                 });
             module.For<TestCommandWhoseHandlerThrowsStandardException>()
-                .Handle((_, __) => { throw new InvalidOperationException(); });
+                .Handle(_ => { throw new InvalidOperationException(); });
             module.For<TestCommandWhoseHandlerThrowProblemDetailsException>()
                 .Handle((_, __) =>
                 {
