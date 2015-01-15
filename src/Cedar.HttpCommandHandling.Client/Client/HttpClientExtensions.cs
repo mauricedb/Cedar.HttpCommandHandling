@@ -6,9 +6,12 @@
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling.Internal;
+    using Cedar.HttpCommandHandling.Logging;
 
     public static class HttpClientExtensions
     {
+        private static readonly ILog Logger = LogProvider.GetLogger("Cedar.HttpCommandHandling.Client");
+
         public static Task PutCommand(this HttpClient client, object command, Guid commandId)
         {
             return PutCommand(client, command, commandId, string.Empty);
@@ -18,7 +21,9 @@
         {
             var request = CreatePutRequest(command, commandId, basePath);
 
+            Logger.InfoFormat("Put Command {0}. Type: {1}", commandId, command.GetType());
             HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            Logger.InfoFormat("Put Command {0}. Response: {1}", commandId, response.ReasonPhrase);
 
             await response.ThrowOnErrorStatus();
         }
