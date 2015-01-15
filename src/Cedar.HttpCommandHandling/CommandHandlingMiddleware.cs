@@ -58,7 +58,7 @@
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/problem+json"));
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = DefaultJsonSerializer.Settings.ContractResolver;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = DefaultJsonSerializer.Instance.ContractResolver;
 
             return config;
         }

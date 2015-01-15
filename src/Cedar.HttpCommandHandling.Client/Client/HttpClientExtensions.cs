@@ -6,7 +6,6 @@
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling.Internal;
-    using Newtonsoft.Json;
 
     public static class HttpClientExtensions
     {
@@ -26,7 +25,7 @@
 
         private static HttpRequestMessage CreatePutRequest(object command, Guid commandId, string basePath)
         {
-            string commandJson = JsonConvert.SerializeObject(command, DefaultJsonSerializer.Settings);
+            string commandJson = DefaultJsonSerializer.Instance.Serialize(command);
             var httpContent = new StringContent(commandJson);
             httpContent.Headers.ContentType =
                 MediaTypeHeaderValue.Parse("application/vnd.{0}+json".FormatWith(command.GetType().FullName.ToLowerInvariant()));

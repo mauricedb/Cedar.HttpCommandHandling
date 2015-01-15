@@ -2,33 +2,34 @@
 {
     using System;
     using System.IO;
+    using System.Text;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
-    internal class DefaultJsonSerializer
+    internal static class DefaultJsonSerializer
     {
-        internal static readonly DefaultJsonSerializer Instance;
-        internal static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        internal static readonly JsonSerializer Instance = JsonSerializer.Create(new JsonSerializerSettings()
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            TypeNameHandling = TypeNameHandling.None
-        };
+            TypeNameHandling = TypeNameHandling.None,
+        });
 
-        private readonly JsonSerializer _jsonSerializer;
-
-        static DefaultJsonSerializer()
+        internal static object Deserialize(this JsonSerializer serializer, string source, Type type)
         {
-            Instance = new DefaultJsonSerializer();
+            using (var reader = new StringReader(source))
+            {
+                return serializer.Deserialize(reader, type);
+            }
         }
 
-        private DefaultJsonSerializer()
+        internal static string Serialize(this JsonSerializer serializer, object o)
         {
-            _jsonSerializer = JsonSerializer.Create(Settings);
-        }
-
-        public object Deserialize(TextReader reader, Type type)
-        {
-            return _jsonSerializer.Deserialize(reader, type);
+            var sb = new StringBuilder();
+            using (var writer = new StringWriter(sb))
+            {
+                serializer.Serialize(writer, o);
+                return sb.ToString();
+            }
         }
     }
 }

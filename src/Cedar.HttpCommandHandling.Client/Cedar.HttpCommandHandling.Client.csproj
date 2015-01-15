@@ -52,7 +52,6 @@
     <Compile Include="HttpProblemDetailsException.cs" />
     <Compile Include="HttpProblemDetails.cs" />
     <Compile Include="Internal\DefaultJsonSerializer.cs" />
-    <Compile Include="Internal\SerializerExtensions.cs" />
     <Compile Include="Client\HttpClientExtensions.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
