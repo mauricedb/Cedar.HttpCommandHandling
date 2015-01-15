@@ -52,7 +52,7 @@
     <Compile Include="HttpProblemDetailsException.cs" />
     <Compile Include="HttpProblemDetails.cs" />
     <Compile Include="DefaultJsonSerializer.cs" />
-    <Compile Include="HttpClientExtensions.cs" />
+    <Compile Include="CommandClient.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
