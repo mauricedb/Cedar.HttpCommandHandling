@@ -10,7 +10,6 @@ namespace Cedar.HttpCommandHandling
     using System.Threading.Tasks;
     using System.Web.Http;
     using Cedar.Annotations;
-    using Cedar.HttpCommandHandling.Internal;
     using Cedar.HttpCommandHandling.TypeResolution;
 
     internal class CommandHandlerController : ApiController

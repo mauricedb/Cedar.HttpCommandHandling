@@ -1,4 +1,4 @@
-﻿namespace Cedar.HttpCommandHandling.Internal
+﻿namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.IO;

@@ -51,9 +51,9 @@
     <Compile Include="App_Packages\LibLog.2.0\LibLog.cs" />
     <Compile Include="HttpProblemDetailsException.cs" />
     <Compile Include="HttpProblemDetails.cs" />
-    <Compile Include="Internal\DefaultJsonSerializer.cs" />
-    <Compile Include="Client\HttpClientExtensions.cs" />
-    <Compile Include="Internal\StringExtensions.cs" />
+    <Compile Include="DefaultJsonSerializer.cs" />
+    <Compile Include="HttpClientExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

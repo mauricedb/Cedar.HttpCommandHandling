@@ -7,7 +7,6 @@
     using System.Web.Http;
     using System.Web.Http.Dependencies;
     using System.Web.Http.Dispatcher;
-    using Cedar.HttpCommandHandling.Internal;
     using Cedar.HttpCommandHandling.TinyIoC;
     using CuttingEdge.Conditions;
     using Microsoft.Owin.Builder;

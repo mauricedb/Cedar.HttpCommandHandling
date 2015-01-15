@@ -6,7 +6,6 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Cedar.HttpCommandHandling.Client;
     using FluentAssertions;
     using Xunit;
     using Xunit.Extensions;

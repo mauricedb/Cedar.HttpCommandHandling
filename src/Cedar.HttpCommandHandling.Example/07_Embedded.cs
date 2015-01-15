@@ -24,7 +24,6 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Embedded
     using System.Net.Http;
     using System.Threading.Tasks;
     using Cedar.HttpCommandHandling;
-    using Cedar.HttpCommandHandling.Client;
     using Xunit;
 
     public class Command
