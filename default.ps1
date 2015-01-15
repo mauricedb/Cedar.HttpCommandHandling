@@ -41,13 +41,13 @@ task ILMerge -depends Compile {
 	$dllDir = "$srcDir\Cedar.HttpCommandHandling.Client\bin\Release"
 	$inputDlls = "$dllDir\Cedar.HttpCommandHandling.Client.dll "
 	@("Newtonsoft.Json") |% { $inputDlls = "$inputDlls $dllDir\$_.dll" }
-	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /log /out:$mergedDir\Cedar.HttpCommandHandling.Client.dll $inputDlls"
+	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /closed /log:$mergedDir\Cedar.HttpCommandHandling.Client.merge.log /out:$mergedDir\Cedar.HttpCommandHandling.Client.dll $inputDlls"
 
 	$dllDir = "$srcDir\Cedar.HttpCommandHandling\bin\Release"
 	$inputDlls = "$dllDir\Cedar.HttpCommandHandling.dll"
 	@("CuttingEdge.Conditions", "Microsoft.Owin", "Newtonsoft.Json", "Owin", "OwinHttpMessageHandler", "System.Net.Http.Formatting", "System.Web.Http",`
 		"System.Web.Http.Owin") |% { $inputDlls = "$inputDlls $dllDir\$_.dll" }
-	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /log /out:$mergedDir\Cedar.HttpCommandHandling.dll $inputDlls"
+	Invoke-Expression "$ilmerge_path /targetplatform:v4 /internalize /allowDup /target:library /closed /log:$mergedDir\Cedar.HttpCommandHandling.merge.log /out:$mergedDir\Cedar.HttpCommandHandling.dll $inputDlls"
 }
 
 task CreateNuGetPackages -depends ILMerge {
