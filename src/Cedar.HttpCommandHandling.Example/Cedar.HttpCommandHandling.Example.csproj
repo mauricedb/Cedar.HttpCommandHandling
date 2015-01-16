@@ -65,6 +65,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="08_Exceptions.cs" />
     <Compile Include="07_Embedded.cs" />
     <Compile Include="06_UnitTestingHandlers.cs" />
     <Compile Include="05_CommandVersioning.cs" />

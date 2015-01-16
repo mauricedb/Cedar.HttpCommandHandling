@@ -74,7 +74,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
                 throw new NotImplementedException();
             }
 
-            void IFoo.Bar()
+            public void Bar()
             {
                 throw new NotImplementedException();
             }

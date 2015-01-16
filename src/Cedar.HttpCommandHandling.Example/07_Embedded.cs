@@ -46,18 +46,15 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Embedded
             // 1. Setup the middlware
             var resolver = new CommandHandlerResolver(new CommandModule());
             var settings = new CommandHandlingSettings(resolver);
-            var midfunc = CommandHandlingMiddleware.HandleCommands(settings);
+            var middleware = CommandHandlingMiddleware.HandleCommands(settings);
 
-            // 2. Allows configuring an HttpClient to invoke the middleware directly
-            var handler = new OwinHttpMessageHandler(midfunc);
-
-            using(var client = new HttpClient(handler)
-            {
-                BaseAddress = new Uri("http://localhost")
-            })
+            // 2. Create an embedded HttpClient. This allows invoking of the 
+            //    HttpPipeline in-memory without a server / listener.
+            using(HttpClient client = middleware.CreateEmbeddedClient())
             {
                 // 3. This is as close as you can get to simulating a real client call
                 //    without needing real server. 
+                //    Can use this to do acceptance testing also.
                 await client.PutCommand(new Command(), Guid.NewGuid());
             }
         }

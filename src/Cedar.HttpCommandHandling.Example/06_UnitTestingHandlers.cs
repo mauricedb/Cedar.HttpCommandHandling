@@ -44,9 +44,11 @@ namespace Cedar.HttpCommandHandling.Example.Commands.UnitTestinHandlers
             var foo = A.Fake<IFoo>();
             A.CallTo(() => foo.Bar(name));
             var sut = new CommandHandlerResolver(new CommandModule(() => foo));
-
             var command = new Command { Name = name };
-            sut.Resolve<Command>()(new CommandMessage<Command>(Guid.NewGuid(), null, command),
+
+
+            sut.Resolve<Command>()(
+                new CommandMessage<Command>(Guid.NewGuid(), null, command),
                 CancellationToken.None);
 
             A.CallTo(() => foo.Bar(name)).MustHaveHappened(Repeated.Exactly.Once);
