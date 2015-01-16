@@ -109,7 +109,6 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
 
             using(HttpClient client = middleware.CreateEmbeddedClient())
             {
-
                 // 5. How to handle the exceptions thrown.
                 try
                 {
