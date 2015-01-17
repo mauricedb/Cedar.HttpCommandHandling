@@ -9,12 +9,12 @@ namespace Cedar.HttpCommandHandling
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http;
-    using Cedar.Annotations;
+    using Cedar.HttpCommandHandling.Annotations;
     using Cedar.HttpCommandHandling.TypeResolution;
 
     internal class CommandHandlerController : ApiController
     {
-        internal static readonly MethodInfo DispatchCommandMethodInfo = typeof(CommandHandlerController)
+        private static readonly MethodInfo DispatchCommandMethodInfo = typeof(CommandHandlerController)
             .GetMethod("DispatchCommand", BindingFlags.Static | BindingFlags.NonPublic);
 
         private readonly CommandHandlingSettings _settings;

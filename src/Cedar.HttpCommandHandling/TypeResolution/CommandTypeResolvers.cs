@@ -3,7 +3,7 @@ namespace Cedar.HttpCommandHandling.TypeResolution
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Cedar.Annotations;
+    using Cedar.HttpCommandHandling.Annotations;
     using CuttingEdge.Conditions;
 
     public static class CommandTypeResolvers

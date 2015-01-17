@@ -27,6 +27,7 @@
             await response.EnsureCommandSuccess();
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public static HttpRequestMessage CreatePutCommandRequest(object command, Guid commandId, string basePath)
         {
             string commandJson = DefaultJsonSerializer.Instance.Serialize(command);
@@ -42,6 +43,7 @@
             return request;
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public static async Task EnsureCommandSuccess(this HttpResponseMessage response)
         {
             if ((int)response.StatusCode >= 400

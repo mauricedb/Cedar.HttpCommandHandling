@@ -8,10 +8,7 @@
         private readonly HashSet<CommandHandlerRegistration> _handlerRegistrations
             = new HashSet<CommandHandlerRegistration>(CommandHandlerRegistration.MessageTypeComparer);
 
-        internal HashSet<CommandHandlerRegistration> HandlerRegistrations
-        {
-            get { return _handlerRegistrations; }
-        }
+        internal IEnumerable<CommandHandlerRegistration> HandlerRegistrations => _handlerRegistrations;
 
         public ICommandHandlerBuilder<CommandMessage<TCommand>> For<TCommand>()
             where TCommand : class

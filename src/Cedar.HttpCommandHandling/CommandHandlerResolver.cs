@@ -2,7 +2,7 @@ namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
-    using Cedar.HttpCommandHandling.TinyIoC;
+    using TinyIoC;
 
     public class CommandHandlerResolver : ICommandHandlerResolver
     {
@@ -29,12 +29,10 @@ namespace Cedar.HttpCommandHandling
             }
         }
 
-        public IEnumerable<Type> KnownCommandTypes
-        {
-            get { return _knownCommandTypes; }
-        }
+        public IEnumerable<Type> KnownCommandTypes => _knownCommandTypes;
 
-        public Handler<CommandMessage<TCommand>> Resolve<TCommand>() where TCommand : class
+        public Handler<CommandMessage<TCommand>> Resolve<TCommand>()
+            where TCommand : class
         {
             return _container.Resolve<Handler<CommandMessage<TCommand>>>();
         }

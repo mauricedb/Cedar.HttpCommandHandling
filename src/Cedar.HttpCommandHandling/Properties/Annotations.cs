@@ -8,7 +8,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Cedar.Annotations
+namespace Cedar.HttpCommandHandling.Annotations
 {
     using System;
 

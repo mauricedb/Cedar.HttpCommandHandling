@@ -5,39 +5,21 @@
 
     internal class CommandHandlerRegistration
     {
-        private static readonly IEqualityComparer<CommandHandlerRegistration> MessageTypeComparerInstance =
-            new MessageTypeEqualityComparer();
-
-        private readonly object _handlerInstance;
-        private readonly Type _messageType;
-        private readonly Type _registrationType;
-
         internal CommandHandlerRegistration(Type messageType, Type registrationType, object handlerInstance)
         {
-            _messageType = messageType;
-            _registrationType = registrationType;
-            _handlerInstance = handlerInstance;
+            MessageType = messageType;
+            RegistrationType = registrationType;
+            HandlerInstance = handlerInstance;
         }
 
         internal static IEqualityComparer<CommandHandlerRegistration> MessageTypeComparer
-        {
-            get { return MessageTypeComparerInstance; }
-        }
+            { get; } = new MessageTypeEqualityComparer();
 
-        public Type RegistrationType
-        {
-            get { return _registrationType; }
-        }
+        public Type RegistrationType { get; }
 
-        public Type MessageType
-        {
-            get { return _messageType; }
-        }
+        public Type MessageType { get; }
 
-        public object HandlerInstance
-        {
-            get { return _handlerInstance; }
-        }
+        public object HandlerInstance { get; }
 
         private sealed class MessageTypeEqualityComparer : IEqualityComparer<CommandHandlerRegistration>
         {
@@ -59,12 +41,12 @@
                 {
                     return false;
                 }
-                return x._messageType == y._messageType;
+                return x.MessageType == y.MessageType;
             }
 
             public int GetHashCode(CommandHandlerRegistration obj)
             {
-                return obj._messageType.GetHashCode();
+                return obj.MessageType.GetHashCode();
             }
         }
     }

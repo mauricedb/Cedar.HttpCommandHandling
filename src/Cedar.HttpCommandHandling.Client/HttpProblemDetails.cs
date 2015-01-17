@@ -10,21 +10,17 @@
         internal static readonly MediaTypeHeaderValue MediaTypeHeaderValue = new MediaTypeHeaderValue("application/problem+json"){ CharSet = "utf-8" };
         internal static readonly MediaTypeWithQualityHeaderValue MediaTypeWithQualityHeaderValue = new MediaTypeWithQualityHeaderValue(MediaTypeHeaderValue.MediaType, 1.0);
 
-        private readonly HttpStatusCode _status;
         private Uri _type;
 
         public HttpProblemDetails(HttpStatusCode status)
         {
-            _status = status;
+            Status = status;
         }
 
         /// <summary>
         ///  The HTTP status code
         /// </summary>
-        public HttpStatusCode Status
-        {
-            get { return _status; }
-        }
+        public HttpStatusCode Status { get; }
 
         /// <summary>
         ///     An absolute URI that identifies the problem type. When

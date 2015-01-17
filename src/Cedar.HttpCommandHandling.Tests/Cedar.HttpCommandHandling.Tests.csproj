@@ -84,6 +84,7 @@
     <Compile Include="TaskExtensionsTests.cs" />
     <Compile Include="CommandHandlingFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeResolution\MediaTypeParsersTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

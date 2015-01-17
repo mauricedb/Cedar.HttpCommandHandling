@@ -5,33 +5,20 @@
 
     public class CommandMessage<TCommand>
     {
-        private readonly TCommand _command;
-        private readonly Guid _commandId;
-        private readonly ClaimsPrincipal _user;
-
         public CommandMessage(
             Guid commandId,
             ClaimsPrincipal user,
             TCommand command)
         {
-            _commandId = commandId;
-            _user = user;
-            _command = command;
+            CommandId = commandId;
+            User = user;
+            Command = command;
         }
 
-        public Guid CommandId
-        {
-            get { return _commandId; }
-        }
+        public Guid CommandId { get; }
 
-        public ClaimsPrincipal User
-        {
-            get { return _user; }
-        }
+        public ClaimsPrincipal User { get; }
 
-        public TCommand Command
-        {
-            get { return _command; }
-        }
+        public TCommand Command { get; }
     }
 }

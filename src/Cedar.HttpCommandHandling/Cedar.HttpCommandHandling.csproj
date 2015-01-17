@@ -86,7 +86,6 @@
     <Compile Include="CommandHandlerRegistration.cs" />
     <Compile Include="ICommandHandlerResolver.cs" />
     <Compile Include="TypeResolution\IParsedMediaType.cs" />
-    <Compile Include="TypeResolution\ITypeResolver.cs" />
     <Compile Include="ICommandHandlerBuilder.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="TaskExtensions.cs" />

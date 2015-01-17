@@ -9,8 +9,6 @@
     /// </summary>
     public class HttpProblemDetailsException : Exception
     {
-        private readonly HttpProblemDetails _problemDetails;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="HttpProblemDetailsException"/> class.
         /// </summary>
@@ -35,12 +33,9 @@
             {
                 throw new ArgumentNullException("problemDetails");
             }
-            _problemDetails = problemDetails;
+            ProblemDetails = problemDetails;
         }
 
-        public HttpProblemDetails ProblemDetails
-        {
-            get { return _problemDetails; }
-        }
+        public HttpProblemDetails ProblemDetails { get; }
     }
 }

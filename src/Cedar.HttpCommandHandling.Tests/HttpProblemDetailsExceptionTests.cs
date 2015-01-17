@@ -21,6 +21,6 @@
             var sut = new HttpProblemDetailsException(HttpStatusCode.BadRequest);
 
             sut.ProblemDetails.Should().NotBeNull();
-;        }
+        }
     }
 }

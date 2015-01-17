@@ -144,7 +144,7 @@ namespace Cedar.HttpCommandHandling.TypeResolution
         /// <value>
         ///     A media type parser.
         /// </value>
-        public static ParseMediaType AllCombined { get; private set; }
+        public static ParseMediaType AllCombined { get; }
 
         /// <summary>
         ///     Gets the media type parser that handles media types that have the version
@@ -153,7 +153,7 @@ namespace Cedar.HttpCommandHandling.TypeResolution
         /// <value>
         ///     A media type parser.
         /// </value>
-        public static ParseMediaType MediaTypeWithoutVersion { get; private set; }
+        public static ParseMediaType MediaTypeWithoutVersion { get; }
 
         /// <summary>
         ///     Gets the media type parser that handles media types that have the version
@@ -162,7 +162,7 @@ namespace Cedar.HttpCommandHandling.TypeResolution
         /// <value>
         ///     A media type parser.
         /// </value>
-        public static ParseMediaType MediaTypeWithDotVersion { get; private set; }
+        public static ParseMediaType MediaTypeWithDotVersion { get; }
 
         /// <summary>
         ///     Gets the media type parser that handles media types that have the version
@@ -171,7 +171,7 @@ namespace Cedar.HttpCommandHandling.TypeResolution
         /// <value>
         ///     A media type parser.
         /// </value>
-        public static ParseMediaType MediaTypeWithMinusVersion { get; private set; }
+        public static ParseMediaType MediaTypeWithMinusVersion { get; }
 
         /// <summary>
         ///     Gets the media type parser that handles media types that have the version
@@ -180,6 +180,6 @@ namespace Cedar.HttpCommandHandling.TypeResolution
         /// <value>
         ///     A media type parser.
         /// </value>
-        public static ParseMediaType MediaTypeWithQualifierVersion { get; private set; }
+        public static ParseMediaType MediaTypeWithQualifierVersion { get; }
     }
 }

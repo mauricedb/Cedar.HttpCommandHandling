@@ -2,14 +2,12 @@ namespace Cedar.HttpCommandHandling
 {
     using System;
     using System.Collections.Generic;
-    using Cedar.Annotations;
+    using Cedar.HttpCommandHandling.Annotations;
     using Cedar.HttpCommandHandling.TypeResolution;
     using CuttingEdge.Conditions;
 
     public class CommandHandlingSettings
     {
-        private readonly ICommandHandlerResolver _handlerResolver;
-        private readonly ResolveCommandType _resolveCommandType;
         private ParseMediaType _parseMediaType = MediaTypeParsers.AllCombined;
         private CreateProblemDetails _createProblemDetails;
 
@@ -28,6 +26,7 @@ namespace Cedar.HttpCommandHandling
         /// </summary>
         /// <param name="handlerResolver">The handler resolver.</param>
         /// <param name="knownCommandTypes">The known command types.</param>
+        // ReSharper disable once MemberCanBePrivate.Global
         public CommandHandlingSettings(
             [NotNull] ICommandHandlerResolver handlerResolver,
             [NotNull] IEnumerable<Type> knownCommandTypes) 
@@ -41,8 +40,8 @@ namespace Cedar.HttpCommandHandling
             Condition.Requires(handlerResolver, "handlerResolver").IsNotNull();
             Condition.Requires(resolveCommandType, "ResolveCommandType").IsNotNull();
 
-            _handlerResolver = handlerResolver;
-            _resolveCommandType = resolveCommandType;
+            HandlerResolver = handlerResolver;
+            ResolveCommandType = resolveCommandType;
         }
 
         public CreateProblemDetails CreateProblemDetails
@@ -58,15 +57,9 @@ namespace Cedar.HttpCommandHandling
             set { _createProblemDetails = value; }
         }
 
-        public ICommandHandlerResolver HandlerResolver
-        {
-            get { return _handlerResolver; }
-        }
+        public ICommandHandlerResolver HandlerResolver { get; }
 
-        public ResolveCommandType ResolveCommandType
-        {
-            get { return _resolveCommandType; }
-        }
+        public ResolveCommandType ResolveCommandType { get; }
 
         public ParseMediaType ParseMediaType
         {

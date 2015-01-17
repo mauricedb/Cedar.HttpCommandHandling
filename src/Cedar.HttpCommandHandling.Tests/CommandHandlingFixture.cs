@@ -45,10 +45,7 @@ namespace Cedar.HttpCommandHandling
             _midFunc = CommandHandlingMiddleware.HandleCommands(commandHandlingSettings);
         }
 
-        public List<object> ReceivedCommands
-        {
-            get { return _receivedCommands; }
-        }
+        public List<object> ReceivedCommands => _receivedCommands;
 
         private static HttpProblemDetails CreateProblemDetails(Exception ex)
         {
@@ -79,5 +76,4 @@ namespace Cedar.HttpCommandHandling
     public class TestCommandWhoseHandlerThrowProblemDetailsException { }
 
     public class TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails { }
-
 }
