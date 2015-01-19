@@ -9,7 +9,7 @@ Owin Middleware for handling commands, typically used in CQRS applications.
 3. Commands are PUT encouraging idempotent handling.
 4. Strategies to support command versioning using Content-Type.
 5. An optional .NET client library to facilitate simple command invocation.
-6. Suppot for IETF HTTP Problem Details for exception handling
+6. IETF HTTP Problem Details for exception handlings
 7. Simple to test.
 
 ### Example
@@ -22,7 +22,7 @@ public class MyCommandModule : CommandHandlerModule
     public CommandModule()
     {
         For<MyCommand>()
-            .Handle(commandMessage => /* handle /*);
+            .Handle(commandMessage => /* handle */);
     }
 }
 
