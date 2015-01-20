@@ -5,8 +5,8 @@
         <version>0.0.0.0</version>
         <authors>Damian Hickey</authors>
         <owners>Damian Hickey</owners>
-        <projectUrl>https://github.com/damianh/Cedar</projectUrl>
-        <licenseUrl>https://github.com/damianh/Cedar/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/damianh/Cedar.HttpCommandHandling</projectUrl>
+        <licenseUrl>https://github.com/damianh/Cedar.HttpCommandHandling/blob/master/LICENSE</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <title>Cedar - HTTP Command Handling Client</title>
         <description>
