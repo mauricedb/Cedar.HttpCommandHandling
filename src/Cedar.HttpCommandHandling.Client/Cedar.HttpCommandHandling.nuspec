@@ -19,8 +19,8 @@
         <dependencies/>
     </metadata>
     <files>
-        <file src="..\..\build\merged\Cedar.HttpCommandHandling.Client.dll" target="lib\net45" />
-        <file src="..\..\build\merged\Cedar.HttpCommandHandling.Client.pdb" target="lib\net45" />
+        <file src="bin\Release\Cedar.HttpCommandHandling.Client.dll" target="lib\net45" />
+        <file src="bin\Release\Cedar.HttpCommandHandling.Client.pdb" target="lib\net45" />
         <file src="bin\Release\Cedar.HttpCommandHandling.Client.xml" target="lib\net45" />
     </files>
 </package>

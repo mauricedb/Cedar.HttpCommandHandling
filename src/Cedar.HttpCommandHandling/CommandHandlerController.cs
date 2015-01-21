@@ -1,7 +1,6 @@
 namespace Cedar.HttpCommandHandling
 {
     using System;
-    using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Reflection;
@@ -73,10 +72,8 @@ namespace Cedar.HttpCommandHandling
 
         private async Task<object> DeserializeCommand(Type commandType)
         {
-            using (var streamReader = new StreamReader(await Request.Content.ReadAsStreamAsync()))
-            {
-                return DefaultJsonSerializer.Instance.Deserialize(streamReader, commandType);
-            }
+            var commandString = await Request.Content.ReadAsStringAsync();
+            return SimpleJson.DeserializeObject(commandString, commandType, CommandClient.JsonSerializerStrategy);
         }
 
         [UsedImplicitly]

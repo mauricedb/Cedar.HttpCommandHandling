@@ -1,7 +1,6 @@
 ﻿namespace Cedar.HttpCommandHandling
 {
     using System;
-    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
@@ -10,6 +9,7 @@
     public static class CommandClient
     {
         private static readonly ILog Logger = LogProvider.GetLogger("Cedar.HttpCommandHandling.CommandClient");
+        internal static readonly IJsonSerializerStrategy JsonSerializerStrategy = new CamelCasingSerializerStrategy();
 
         public static Task PutCommand(this HttpClient client, object command, Guid commandId)
         {
@@ -29,7 +29,7 @@
 
         public static HttpRequestMessage CreatePutCommandRequest(object command, Guid commandId, string basePath)
         {
-            string commandJson = DefaultJsonSerializer.Instance.Serialize(command);
+            string commandJson = SimpleJson.SerializeObject(command, JsonSerializerStrategy);
             var httpContent = new StringContent(commandJson);
             httpContent.Headers.ContentType =
                 MediaTypeHeaderValue.Parse("application/vnd.{0}+json".FormatWith(command.GetType().FullName.ToLowerInvariant()));
@@ -46,20 +46,23 @@
         {
             if ((int)response.StatusCode >= 400
                 && response.Content.Headers.ContentType != null
-                && response.Content.Headers.ContentType.Equals(HttpProblemDetails.MediaTypeHeaderValue)
-                && response.Headers.Contains(HttpProblemDetails.HttpProblemDetailsTypeHeader))
+                && response.Content.Headers.ContentType.Equals(HttpProblemDetails.MediaTypeHeaderValue))
             {
                 // Extract problem details, if they are supplied.
-                var problemDetailTypeName = response.Headers.GetValues(HttpProblemDetails.HttpProblemDetailsTypeHeader)
-                    .Single();
-
-                var problemDetailType = Type.GetType(problemDetailTypeName);
                 var body = await response.Content.ReadAsStringAsync();
-                object problemDetails = DefaultJsonSerializer.Instance.Deserialize(body, problemDetailType);
-
-                throw new HttpProblemDetailsException((HttpProblemDetails)problemDetails);
+                HttpProblemDetailsDto problemDetails = SimpleJson
+                    .DeserializeObject<HttpProblemDetailsDto>(body, JsonSerializerStrategy);
+                throw new HttpProblemDetailsException(HttpProblemDetails.FromDto(problemDetails));
             }
             response.EnsureSuccessStatusCode();
+        }
+
+        private class CamelCasingSerializerStrategy : PocoJsonSerializerStrategy
+        {
+            protected override string MapClrMemberNameToJsonFieldName(string clrPropertyName)
+            {
+                return clrPropertyName.ToCamelCase();
+            }
         }
     }
 }

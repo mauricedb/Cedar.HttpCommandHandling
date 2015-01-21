@@ -10,6 +10,8 @@
     using Cedar.HttpCommandHandling.TinyIoC;
     using CuttingEdge.Conditions;
     using Microsoft.Owin.Builder;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using Owin;
     using MidFunc = System.Func<System.Func<System.Collections.Generic.IDictionary<string, object>, 
             System.Threading.Tasks.Task
@@ -57,7 +59,9 @@
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/problem+json"));
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = DefaultJsonSerializer.Instance.ContractResolver;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.TypeNameHandling = TypeNameHandling.None;
 
             return config;
         }

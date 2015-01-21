@@ -85,7 +85,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
         private static readonly CreateProblemDetails MapExceptionToProblemDetails = exception =>
         {
             var ex = exception as InvalidOperationException;
-            if(exception != null)
+            if(ex != null)
             {
                 return new HttpProblemDetails(HttpStatusCode.BadRequest)
                 {

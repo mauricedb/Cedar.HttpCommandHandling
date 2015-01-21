@@ -6,7 +6,6 @@
 
     public class HttpProblemDetails
     {
-        internal const string HttpProblemDetailsTypeHeader = "Cedar-HttpProblemDetailsType";
         internal static readonly MediaTypeHeaderValue MediaTypeHeaderValue = new MediaTypeHeaderValue("application/problem+json"){ CharSet = "utf-8" };
         internal static readonly MediaTypeWithQualityHeaderValue MediaTypeWithQualityHeaderValue = new MediaTypeWithQualityHeaderValue(MediaTypeHeaderValue.MediaType, 1.0);
 
@@ -72,6 +71,29 @@
                 }
                 _type = value;
             }
+        }
+
+        internal HttpProblemDetailsDto GetDto()
+        {
+            return new HttpProblemDetailsDto
+            {
+                Detail = Detail,
+                Status = (int) Status,
+                Instance = Instance.ToString(),
+                Title = Title,
+                Type = Type.ToString()
+            };
+        }
+
+        internal static HttpProblemDetails FromDto(HttpProblemDetailsDto dto)
+        {
+            return new HttpProblemDetails((HttpStatusCode)dto.Status)
+            {
+                Detail = dto.Detail,
+                Instance = string.IsNullOrWhiteSpace(dto.Instance) ? null : new Uri(dto.Instance),
+                Title = dto.Title,
+                Type = string.IsNullOrWhiteSpace(dto.Type) ? null : new Uri(dto.Instance)
+            };
         }
     }
 }

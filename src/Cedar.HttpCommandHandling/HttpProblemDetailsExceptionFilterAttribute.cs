@@ -1,5 +1,6 @@
 namespace Cedar.HttpCommandHandling
 {
+    using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using System.Web.Http;
@@ -23,17 +24,17 @@ namespace Cedar.HttpCommandHandling
 
             if(problemDetails == null)
             {
-                base.OnException(actionExecutedContext);
+                actionExecutedContext.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
                 return;
             }
 
             var config = actionExecutedContext.ActionContext.ControllerContext.Configuration;
             var negotiator = config.Services.GetContentNegotiator();
             var formatters = config.Formatters;
-            var type = problemDetails.GetType();  // we may be dealing with a type that inherits from HttpProblemDetails because of extensibility
+            var dtoType = typeof(HttpProblemDetailsDto);
 
             ContentNegotiationResult result = negotiator.Negotiate(
-                type,
+                dtoType,
                 actionExecutedContext.Request,
                 formatters);
 
@@ -46,12 +47,11 @@ namespace Cedar.HttpCommandHandling
             var response = new HttpResponseMessage(problemDetails.Status)
             {
                 Content = new ObjectContent(
-                    type,
-                    problemDetails,
+                    dtoType,
+                    problemDetails.GetDto(),
                     result.Formatter,
                     result.MediaType)
             };
-            response.Headers.Add(HttpProblemDetails.HttpProblemDetailsTypeHeader, type.FullName);
             actionExecutedContext.Response = response;
         }
     }
