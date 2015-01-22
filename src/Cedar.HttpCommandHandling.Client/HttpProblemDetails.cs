@@ -11,6 +11,7 @@
 
         private readonly HttpStatusCode _status;
         private Uri _type;
+        private Uri _instance;
 
         public HttpProblemDetails(HttpStatusCode status)
         {
@@ -62,14 +63,14 @@
         /// </summary>
         public Uri Instance
         {
-            get { return _type; }
+            get { return _instance; }
             set
             {
                 if (value != null && !value.IsAbsoluteUri)
                 {
                     throw new InvalidOperationException("Uri must be absolute.");
                 }
-                _type = value;
+                _instance = value;
             }
         }
 
@@ -79,9 +80,9 @@
             {
                 Detail = Detail,
                 Status = (int) Status,
-                Instance = Instance.ToString(),
+                Instance = Instance != null ? Instance.ToString() : null,
                 Title = Title,
-                Type = Type.ToString()
+                Type = Type != null ? Type.ToString() : null
             };
         }
 
@@ -92,7 +93,7 @@
                 Detail = dto.Detail,
                 Instance = string.IsNullOrWhiteSpace(dto.Instance) ? null : new Uri(dto.Instance),
                 Title = dto.Title,
-                Type = string.IsNullOrWhiteSpace(dto.Type) ? null : new Uri(dto.Instance)
+                Type = string.IsNullOrWhiteSpace(dto.Type) ? null : new Uri(dto.Type)
             };
         }
     }
