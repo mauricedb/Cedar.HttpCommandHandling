@@ -71,6 +71,23 @@
         }
 
         [Fact]
+        public void When_put_command_whose_handler_throws_exception_mapped_to_http_problem_details_exception_then_should_throw()
+        {
+            using (var client = _fixture.CreateHttpClient())
+            {
+                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails(), Guid.NewGuid());
+
+                var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
+
+                exception.ProblemDetails.Should().NotBeNull();
+                exception.ProblemDetails.Instance.Should().BeNull();
+                exception.ProblemDetails.Detail.Should().NotBeNull();
+                exception.ProblemDetails.Title.Should().NotBeNull();
+                exception.ProblemDetails.Type.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
         public void When_command_endpoint_is_not_found_then_should_throw()
         {
             using (var client = _fixture.CreateHttpClient())

@@ -58,7 +58,8 @@ namespace Cedar.HttpCommandHandling
                 return new HttpProblemDetails(HttpStatusCode.BadRequest)
                 {
                     Title = "Application Exception",
-                    Detail = applicationExcepion.Message
+                    Detail = applicationExcepion.Message,
+                    Type = new Uri("urn:ApplicationException")
                 };
             }
             return null;
