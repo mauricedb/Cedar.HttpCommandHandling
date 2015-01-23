@@ -47,7 +47,9 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new TestCommandWhoseHandlerThrowsStandardException(),
+                    Guid.NewGuid());
 
                 act.ShouldThrow<HttpRequestException>();
             }
@@ -58,7 +60,9 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new TestCommandWhoseHandlerThrowProblemDetailsException(),
+                    Guid.NewGuid());
 
                 var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
 
@@ -75,7 +79,9 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails(),
+                    Guid.NewGuid());
 
                 var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
 

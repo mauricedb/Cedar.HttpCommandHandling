@@ -31,7 +31,7 @@ namespace Cedar.HttpCommandHandling
             var config = actionExecutedContext.ActionContext.ControllerContext.Configuration;
             var negotiator = config.Services.GetContentNegotiator();
             var formatters = config.Formatters;
-            var dtoType = typeof(HttpProblemDetailsDto);
+            var dtoType = typeof(HttpProblemDetails);
 
             ContentNegotiationResult result = negotiator.Negotiate(
                 dtoType,
@@ -44,11 +44,12 @@ namespace Cedar.HttpCommandHandling
                 return;
             }
 
-            var response = new HttpResponseMessage(problemDetails.Status)
+            var status = problemDetails.Status;// ?? HttpStatusCode.InternalServerError;
+            var response = new HttpResponseMessage((HttpStatusCode)status)
             {
                 Content = new ObjectContent(
                     dtoType,
-                    problemDetails.GetDto(),
+                    problemDetails,
                     result.Formatter,
                     result.MediaType)
             };

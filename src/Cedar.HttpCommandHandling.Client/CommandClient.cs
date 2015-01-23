@@ -50,9 +50,9 @@
             {
                 // Extract problem details, if they are supplied.
                 var body = await response.Content.ReadAsStringAsync();
-                HttpProblemDetailsDto problemDetails = SimpleJson
-                    .DeserializeObject<HttpProblemDetailsDto>(body, JsonSerializerStrategy);
-                throw new HttpProblemDetailsException(HttpProblemDetails.FromDto(problemDetails));
+                var problemDetails = SimpleJson
+                    .DeserializeObject<HttpProblemDetails>(body, JsonSerializerStrategy);
+                throw new HttpProblemDetailsException(problemDetails);
             }
             response.EnsureSuccessStatusCode();
         }

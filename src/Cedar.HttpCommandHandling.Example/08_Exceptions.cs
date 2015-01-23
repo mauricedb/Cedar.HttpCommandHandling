@@ -66,7 +66,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
             For<CommandThatThrowsProblemDetailsException>()
                 .Handle(_ =>
                 {
-                    var details = new HttpProblemDetails(HttpStatusCode.NotImplemented);
+                    var details = new HttpProblemDetails { Status = (int)HttpStatusCode.NotImplemented };
                     throw new HttpProblemDetailsException(details);
                 });
 
@@ -87,8 +87,9 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
             var ex = exception as InvalidOperationException;
             if(ex != null)
             {
-                return new HttpProblemDetails(HttpStatusCode.BadRequest)
+                return new HttpProblemDetails
                 {
+                    Status = (int)HttpStatusCode.BadRequest,
                     Detail = ex.Message
                 };
             }

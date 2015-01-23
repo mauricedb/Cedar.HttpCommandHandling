@@ -24,11 +24,12 @@ namespace Cedar.HttpCommandHandling
             module.For<TestCommandWhoseHandlerThrowProblemDetailsException>()
                 .Handle((_, __) =>
                 {
-                    var problemDetails = new HttpProblemDetails(HttpStatusCode.BadRequest)
+                    var problemDetails = new HttpProblemDetails()
                     {
-                        Type = new Uri("http://localhost/type"),
+                        Status = (int)HttpStatusCode.BadRequest,
+                        Type = "http://localhost/type",
                         Detail = "You done goof'd",
-                        Instance = new Uri("http://localhost/errors/1"),
+                        Instance = "http://localhost/errors/1",
                         Title = "Jimmies Ruslted"
                     };
                     throw new HttpProblemDetailsException(problemDetails);
@@ -55,11 +56,12 @@ namespace Cedar.HttpCommandHandling
             var applicationExcepion = ex as ApplicationException;
             if(applicationExcepion != null)
             {
-                return new HttpProblemDetails(HttpStatusCode.BadRequest)
+                return new HttpProblemDetails
                 {
+                    Status = (int)HttpStatusCode.BadRequest,
                     Title = "Application Exception",
                     Detail = applicationExcepion.Message,
-                    Type = new Uri("urn:ApplicationException")
+                    Type = "urn:ApplicationException"
                 };
             }
             return null;
