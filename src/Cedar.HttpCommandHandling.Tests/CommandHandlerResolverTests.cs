@@ -12,7 +12,7 @@
             var module = new TestCommandHandlerModule();
             var resolver = new CommandHandlerResolver(module);
 
-            Handler<CommandMessage<TestCommand>> handler = resolver.Resolve<TestCommand>();
+            Handler<CommandMessage<Command>> handler = resolver.Resolve<Command>();
 
             handler.Should().NotBeNull();
         }
@@ -21,7 +21,7 @@
         {
             public TestCommandHandlerModule()
             {
-                For<TestCommand>()
+                For<Command>()
                     .Handle((_, __) => Task.FromResult(0));
             }
         }

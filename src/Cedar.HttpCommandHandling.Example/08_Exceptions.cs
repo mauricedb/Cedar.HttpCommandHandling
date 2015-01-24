@@ -34,7 +34,7 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
+namespace Cedar.HttpCommandHandling.Example.Exceptions
 {
     using System;
     using System.Net;
@@ -43,46 +43,74 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
     using Cedar.HttpCommandHandling;
     using Xunit;
 
-    public class CommandThatThrowsStandardException
-    {}
+    public class CommandThatThrowsStandardException { }
 
-    public class CommandThatThrowsProblemDetailsException
-    {}
+    public class CommandThatThrowsProblemDetailsException { }
 
-    public class CommandThatThrowsMappedException
-    {}
+    public class CommandThatThrowsMappedException { }
+
+    public class CommandThatThrowsCustomProblemDetailsException { }
 
     public class CommandModule : CommandHandlerModule
     {
+        // 1. Example of handlers thowing the various exceptions
         public CommandModule()
         {
-            // 1. Example of handlers thowing the various exceptions
             For<CommandThatThrowsStandardException>()
                 .Handle(_ =>
                 {
+                    // 2. Standard exception that will result in a 404
                     throw new Exception();
                 });
 
             For<CommandThatThrowsProblemDetailsException>()
                 .Handle(_ =>
                 {
+                    // 3. Throwing an explicit HttpProblemDetailsException
                     var details = new HttpProblemDetails { Status = (int)HttpStatusCode.NotImplemented };
-                    throw new HttpProblemDetailsException(details);
+                    throw new HttpProblemDetailsException<HttpProblemDetails>(details);
                 });
 
             For<CommandThatThrowsMappedException>()
                 .Handle(_ =>
                 {
-                    // 2. We'll create the map for this in the settings.
+                    // 4. This exception type is mapped to an HttpProblemDetails in the settings.
                     throw new InvalidOperationException("jimms rustled");
+                });
+
+            For<CommandThatThrowsCustomProblemDetailsException>()
+                .Handle(_ =>
+                {
+                    // 5. Throwing custom problem details exception.
+                    var problemDetails = new CustomHttpProblemDetails
+                    {
+                        Status = (int)HttpStatusCode.NotImplemented,
+                        Name = "Damo"
+                    };
+                    throw new CustomHttpProblemDetailsException(problemDetails);
                 });
         }
     }
 
+    public class CustomHttpProblemDetails : HttpProblemDetails
+    {
+        // 6. Custom problem details should be easily (de-)serializable
+        public string Name { get; set; }
+    }
+
+    public class CustomHttpProblemDetailsException : HttpProblemDetailsException<CustomHttpProblemDetails>
+    {
+        // 7. Custom problem details exception must contain this ctor with a single param
+        //    that takes the custom problem details.
+        public CustomHttpProblemDetailsException(CustomHttpProblemDetails problemDetails) 
+            : base(problemDetails)
+        {}
+    }
+
     public class CommandModuleTests
     {
-        // 3. Our exception -> ProblemDetails map.
-        private static readonly CreateProblemDetails MapExceptionToProblemDetails = exception =>
+        // 8. Our exception -> ProblemDetails map.
+        private static readonly MapProblemDetailsFromException MapExceptionToProblemDetails = exception =>
         {
             var ex = exception as InvalidOperationException;
             if(ex != null)
@@ -93,24 +121,25 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
                     Detail = ex.Message
                 };
             }
-            // 4. Return null if no map exists. This will fall back to
+            // 9. Return null if no map exists. This will fall back to
             //    standard exeption handling behaviour
             return null;
         };
 
         [Fact]
-        public async Task Can_invoke_command_over_http()
+        public async Task Example_exception_handling()
         {
             var resolver = new CommandHandlerResolver(new CommandModule());
             var settings = new CommandHandlingSettings(resolver)
             {
-                CreateProblemDetails = MapExceptionToProblemDetails
+                // 10. Specify the exception -> HttpProblemDetails mapper here
+                MapProblemDetailsFromException = MapExceptionToProblemDetails
             };
             var middleware = CommandHandlingMiddleware.HandleCommands(settings);
 
             using(HttpClient client = middleware.CreateEmbeddedClient())
             {
-                // 5. How to handle the exceptions thrown.
+                // 11. Handling standard exceptions.
                 try
                 {
                     await client.PutCommand(new CommandThatThrowsStandardException(), Guid.NewGuid());
@@ -120,24 +149,38 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Exceptions
                     Console.WriteLine(ex.Message);
                 }
 
+                // 12. Handling explicit HttpProblemDetailsExceptions
                 try
                 {
                     await client.PutCommand(new CommandThatThrowsProblemDetailsException(), Guid.NewGuid());
                 }
-                catch (HttpProblemDetailsException ex)
+                catch (HttpProblemDetailsException<HttpProblemDetails> ex)
                 {
                     Console.WriteLine(ex.ProblemDetails.Detail);
                     Console.WriteLine(ex.ProblemDetails.Status);
                 }
 
+                // 13. Handling mapped exceptions, same as #6
                 try
                 {
                     await client.PutCommand(new CommandThatThrowsMappedException(), Guid.NewGuid());
                 }
-                catch (HttpProblemDetailsException ex)
+                catch (HttpProblemDetailsException<HttpProblemDetails> ex)
                 {
                     Console.WriteLine(ex.ProblemDetails.Detail);
                     Console.WriteLine(ex.ProblemDetails.Status);
+                }
+
+                // 14. Handling custom HttpProblemDetailExceptions
+                try
+                {
+                    await client.PutCommand(new CommandThatThrowsCustomProblemDetailsException(), Guid.NewGuid());
+                }
+                catch (CustomHttpProblemDetailsException ex)
+                {
+                    Console.WriteLine(ex.ProblemDetails.Detail);
+                    Console.WriteLine(ex.ProblemDetails.Status);
+                    Console.WriteLine(ex.ProblemDetails.Name);
                 }
             }
         }

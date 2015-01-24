@@ -12,11 +12,16 @@
 
         private string _type;
         private string _instance;
+        private int _status;
 
         /// <summary>
         ///  The HTTP status code
         /// </summary>
-        public int Status { get; set; }
+        public int Status
+        {
+            get { return _status; }
+            set { _status = value <= 0 ? 500 : value; }
+        }
 
         /// <summary>
         ///     An absolute URI that identifies the problem type. When

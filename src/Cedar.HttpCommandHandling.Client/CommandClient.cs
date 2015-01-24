@@ -1,6 +1,7 @@
 ﻿namespace Cedar.HttpCommandHandling
 {
     using System;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
@@ -9,7 +10,17 @@
     public static class CommandClient
     {
         private static readonly ILog Logger = LogProvider.GetLogger("Cedar.HttpCommandHandling.CommandClient");
+        internal static readonly ProductInfoHeaderValue UserAgent;
         internal static readonly IJsonSerializerStrategy JsonSerializerStrategy = new CamelCasingSerializerStrategy();
+        internal const string HttpProblemDetailsClrType = "Cedar-HttpProblemDetails-ClrType";
+        internal const string HttpProblemDetailsExceptionClrType = "Cedar-HttpProblemDetailsException-ClrType";
+
+        static CommandClient()
+        {
+            var type = typeof(CommandClient);
+            var version = type.Assembly.GetName().Version;
+            UserAgent = new ProductInfoHeaderValue(type.FullName, version.Major + "." + version.Minor);
+        }
 
         public static Task PutCommand(this HttpClient client, object command, Guid commandId)
         {
@@ -38,7 +49,9 @@
             {
                 Content = httpContent
             };
+            request.Headers.UserAgent.Add(UserAgent);
             request.Headers.Accept.Add(HttpProblemDetails.MediaTypeWithQualityHeaderValue);
+
             return request;
         }
 
@@ -50,11 +63,37 @@
             {
                 // Extract problem details, if they are supplied.
                 var body = await response.Content.ReadAsStringAsync();
-                var problemDetails = SimpleJson
-                    .DeserializeObject<HttpProblemDetails>(body, JsonSerializerStrategy);
-                throw new HttpProblemDetailsException(problemDetails);
+                var problemDetailsClrType = response
+                    .Headers
+                    .Single(kvp => kvp.Key == HttpProblemDetailsClrType)
+                    .Value
+                    .Single();
+                var exceptionClrType = response
+                    .Headers
+                    .Single(kvp => kvp.Key == HttpProblemDetailsExceptionClrType)
+                    .Value
+                    .Single();
+
+                var problemDetailsType = GetType(problemDetailsClrType);
+                var problemDetails = SimpleJson.DeserializeObject(body, problemDetailsType, JsonSerializerStrategy);
+
+                var exceptionType = GetType(exceptionClrType);
+                var exception = (Exception)Activator.CreateInstance(exceptionType, problemDetails);
+
+                throw exception;
             }
+
             response.EnsureSuccessStatusCode();
+        }
+
+        private static Type GetType(string typeName)
+        {
+            var type = Type.GetType(typeName);
+            if(type == null)
+            {
+                throw new TypeLoadException("Failed to get type {0}".FormatWith(typeName));
+            }
+            return type;
         }
 
         private class CamelCasingSerializerStrategy : PocoJsonSerializerStrategy

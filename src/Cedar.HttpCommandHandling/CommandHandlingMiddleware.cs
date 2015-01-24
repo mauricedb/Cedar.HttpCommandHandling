@@ -55,7 +55,7 @@
                 DependencyResolver = new TinyIoCDependencyResolver(container)
             };
             config.Services.Replace(typeof(IHttpControllerTypeResolver), new CommandHandlingHttpControllerTypeResolver());
-            config.Filters.Add(new HttpProblemDetailsExceptionFilterAttribute(settings.CreateProblemDetails));
+            config.Filters.Add(new HttpProblemDetailsExceptionFilterAttribute(settings.MapProblemDetailsFromException));
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
             config.MapHttpAttributeRoutes();
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/problem+json"));
