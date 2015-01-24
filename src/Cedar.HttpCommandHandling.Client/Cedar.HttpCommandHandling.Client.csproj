@@ -48,6 +48,7 @@
     <Compile Include="HttpProblemDetailsException.cs" />
     <Compile Include="HttpProblemDetails.cs" />
     <Compile Include="CommandClient.cs" />
+    <Compile Include="IHttpProblemDetailException.cs" />
     <Compile Include="SimpleJson.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

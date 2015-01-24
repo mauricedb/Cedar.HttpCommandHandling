@@ -2,11 +2,6 @@
 {
     using System;
 
-    internal interface IHttpProblemDetailException
-    {
-        HttpProblemDetails ProblemDetails { get; }
-    }
-
     public class HttpProblemDetailsException<T> : Exception, IHttpProblemDetailException
         where T : HttpProblemDetails
     {
