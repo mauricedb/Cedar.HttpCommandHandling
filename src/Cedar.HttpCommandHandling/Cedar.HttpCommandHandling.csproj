@@ -75,7 +75,7 @@
     <Compile Include="CommandHandlerModule.cs" />
     <Compile Include="CommandHandlerResolver.cs" />
     <Compile Include="CommandHandlingSettings.cs" />
-    <Compile Include="CreateProblemDetails.cs" />
+    <Compile Include="MapProblemDetailsFromException.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="CommandHandlerBuilderExtensions.cs" />
     <Compile Include="HandlerSync.cs" />

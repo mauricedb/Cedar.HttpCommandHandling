@@ -11,7 +11,7 @@ namespace Cedar.HttpCommandHandling
         private readonly ICommandHandlerResolver _handlerResolver;
         private readonly ResolveCommandType _resolveCommandType;
         private ParseMediaType _parseMediaType = MediaTypeParsers.AllCombined;
-        private CreateProblemDetails _createProblemDetails;
+        private MapProblemDetailsFromException _mapProblemDetailsFromException;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CommandHandlingSettings"/> class using
@@ -45,17 +45,17 @@ namespace Cedar.HttpCommandHandling
             _resolveCommandType = resolveCommandType;
         }
 
-        public CreateProblemDetails CreateProblemDetails
+        public MapProblemDetailsFromException MapProblemDetailsFromException
         {
             get
             {
-                if(_createProblemDetails == null)
+                if(_mapProblemDetailsFromException == null)
                 {
                     return _ => null;
                 }
-                return _createProblemDetails;
+                return _mapProblemDetailsFromException;
             }
-            set { _createProblemDetails = value; }
+            set { _mapProblemDetailsFromException = value; }
         }
 
         public ICommandHandlerResolver HandlerResolver

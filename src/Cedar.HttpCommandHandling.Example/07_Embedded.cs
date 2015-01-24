@@ -18,7 +18,7 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.HttpCommandHandling.Example.Commands.Embedded
+namespace Cedar.HttpCommandHandling.Example.Embedded
 {
     using System;
     using System.Net.Http;

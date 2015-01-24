@@ -45,10 +45,10 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Packages\LibLog.2.0\LibLog.cs" />
-    <Compile Include="HttpProblemDetailsDto.cs" />
     <Compile Include="HttpProblemDetailsException.cs" />
     <Compile Include="HttpProblemDetails.cs" />
     <Compile Include="CommandClient.cs" />
+    <Compile Include="IHttpProblemDetailException.cs" />
     <Compile Include="SimpleJson.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

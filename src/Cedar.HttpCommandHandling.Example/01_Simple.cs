@@ -4,7 +4,7 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.HttpCommandHandling.Example.Commands.Simple
+namespace Cedar.HttpCommandHandling.Example.Simple
 {
     using System;
     using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace Cedar.HttpCommandHandling.Example.Commands.Simple
     {}
 
     public class CommandAsyncHandler
-    { }
+    {}
 
 
     // 2. A service the command handlers depends.

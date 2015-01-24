@@ -13,33 +13,11 @@ namespace Cedar.HttpCommandHandling
 
         public CommandHandlingFixture()
         {
-            var module = new CommandHandlerModule();
-            module.For<TestCommand>()
-                .Handle(commandMessage =>
-                {
-                    _receivedCommands.Add(commandMessage);
-                });
-            module.For<TestCommandWhoseHandlerThrowsStandardException>()
-                .Handle(_ => { throw new InvalidOperationException(); });
-            module.For<TestCommandWhoseHandlerThrowProblemDetailsException>()
-                .Handle((_, __) =>
-                {
-                    var problemDetails = new HttpProblemDetails(HttpStatusCode.BadRequest)
-                    {
-                        Type = new Uri("http://localhost/type"),
-                        Detail = "You done goof'd",
-                        Instance = new Uri("http://localhost/errors/1"),
-                        Title = "Jimmies Ruslted"
-                    };
-                    throw new HttpProblemDetailsException(problemDetails);
-                });
-            module.For<TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails>()
-               .Handle((_, __) => { throw new ApplicationException("Custom application exception"); });
-
+            var module = CreateCommandHandlerModule();
             var handlerResolver = new CommandHandlerResolver(module);
             var commandHandlingSettings = new CommandHandlingSettings(handlerResolver)
             {
-                CreateProblemDetails = CreateProblemDetails
+                MapProblemDetailsFromException = CreateProblemDetails
             };
 
             _midFunc = CommandHandlingMiddleware.HandleCommands(commandHandlingSettings);
@@ -50,16 +28,62 @@ namespace Cedar.HttpCommandHandling
             get { return _receivedCommands; }
         }
 
+        private CommandHandlerModule CreateCommandHandlerModule()
+        {
+            var module = new CommandHandlerModule();
+
+            module.For<Command>()
+                .Handle(commandMessage => { _receivedCommands.Add(commandMessage); });
+
+            module.For<CommandThatThrowsStandardException>()
+                .Handle(_ => { throw new InvalidOperationException(); });
+
+            module.For<CommandThatThrowsProblemDetailsException>()
+                .Handle((_, __) =>
+                {
+                    var problemDetails = new HttpProblemDetails
+                    {
+                        Status = (int)HttpStatusCode.BadRequest,
+                        Type = "http://localhost/type",
+                        Detail = "You done goof'd",
+                        Instance = "http://localhost/errors/1",
+                        Title = "Jimmies Ruslted"
+                    };
+                    throw new HttpProblemDetailsException<HttpProblemDetails>(problemDetails);
+                });
+
+            module.For<CommandThatThrowsMappedException>()
+               .Handle((_, __) => { throw new ApplicationException("Mapped application exception"); });
+
+            module.For<CommandThatThrowsCustomProblemDetailsException>()
+                .Handle((_, __) =>
+                {
+                    var problemDetails = new CustomHttpProblemDetails()
+                    {
+                        Status = (int)HttpStatusCode.BadRequest,
+                        Type = "http://localhost/type",
+                        Detail = "You done goof'd",
+                        Instance = "http://localhost/errors/1",
+                        Title = "Jimmies Ruslted",
+                        Name = "Damo"
+                    };
+                    throw new CustomProblemDetailsException(problemDetails);
+                });
+
+            return module;
+        }
+
         private static HttpProblemDetails CreateProblemDetails(Exception ex)
         {
             var applicationExcepion = ex as ApplicationException;
             if(applicationExcepion != null)
             {
-                return new HttpProblemDetails(HttpStatusCode.BadRequest)
+                return new HttpProblemDetails
                 {
+                    Status = (int)HttpStatusCode.BadRequest,
                     Title = "Application Exception",
                     Detail = applicationExcepion.Message,
-                    Type = new Uri("urn:ApplicationException")
+                    Type = "urn:ApplicationException"
                 };
             }
             return null;
@@ -71,14 +95,25 @@ namespace Cedar.HttpCommandHandling
         }
     }
 
-    public class TestCommand { }
+    public class Command { }
 
-    public class TestCommandWithoutHandler { }
+    public class CommandThatThrowsStandardException { }
 
-    public class TestCommandWhoseHandlerThrowsStandardException { }
+    public class CommandThatThrowsProblemDetailsException { }
 
-    public class TestCommandWhoseHandlerThrowProblemDetailsException { }
+    public class CommandThatThrowsMappedException { }
 
-    public class TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails { }
+    public class CommandThatThrowsCustomProblemDetailsException { }
 
+    public class CustomHttpProblemDetails : HttpProblemDetails
+    {
+        public string Name { get; set; }
+    }
+
+    public class CustomProblemDetailsException : HttpProblemDetailsException<CustomHttpProblemDetails>
+    {
+        public CustomProblemDetailsException(CustomHttpProblemDetails problemDetails) 
+            : base(problemDetails)
+        {}
+    }
 }

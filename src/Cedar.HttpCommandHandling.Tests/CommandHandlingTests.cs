@@ -19,7 +19,7 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(new Command(), Guid.NewGuid());
 
                 act.ShouldNotThrow();
             }
@@ -31,11 +31,11 @@
             using (var client = _fixture.CreateHttpClient())
             {
                 var commandId = Guid.NewGuid();
-                await client.PutCommand(new TestCommand(), commandId);
+                await client.PutCommand(new Command(), commandId);
                 var receivedCommand = _fixture.ReceivedCommands.Last();
-                var commandMessage = (CommandMessage<TestCommand>)receivedCommand;
+                var commandMessage = (CommandMessage<Command>)receivedCommand;
 
-                commandMessage.Command.Should().BeOfType<TestCommand>();
+                commandMessage.Command.Should().BeOfType<Command>();
                 commandMessage.Command.Should().NotBeNull();
                 commandMessage.CommandId.Should().Be(commandId);
                 commandMessage.User.Should().NotBeNull();
@@ -47,7 +47,9 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsStandardException(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new CommandThatThrowsStandardException(),
+                    Guid.NewGuid());
 
                 act.ShouldThrow<HttpRequestException>();
             }
@@ -58,9 +60,11 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowProblemDetailsException(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new CommandThatThrowsProblemDetailsException(),
+                    Guid.NewGuid());
 
-                var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
+                var exception = act.ShouldThrow<HttpProblemDetailsException<HttpProblemDetails>>().And;
 
                 exception.ProblemDetails.Should().NotBeNull();
                 exception.ProblemDetails.Instance.Should().NotBeNull();
@@ -75,9 +79,11 @@
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommandWhoseHandlerThrowsExceptionThatIsConvertedToProblemDetails(), Guid.NewGuid());
+                Func<Task> act = () => client.PutCommand(
+                    new CommandThatThrowsMappedException(),
+                    Guid.NewGuid());
 
-                var exception = act.ShouldThrow<HttpProblemDetailsException>().And;
+                var exception = act.ShouldThrow<HttpProblemDetailsException<HttpProblemDetails>>().And;
 
                 exception.ProblemDetails.Should().NotBeNull();
                 exception.ProblemDetails.Instance.Should().BeNull();
@@ -88,11 +94,31 @@
         }
 
         [Fact]
+        public void When_put_command_whose_handler_throws_custom_problem_details_exception_then_should_throw()
+        {
+            using (var client = _fixture.CreateHttpClient())
+            {
+                Func<Task> act = () => client.PutCommand(
+                    new CommandThatThrowsCustomProblemDetailsException(),
+                    Guid.NewGuid());
+
+                var exception = act.ShouldThrow<CustomProblemDetailsException>().And;
+
+                exception.ProblemDetails.Should().NotBeNull();
+                exception.ProblemDetails.Instance.Should().NotBeNull();
+                exception.ProblemDetails.Detail.Should().NotBeNull();
+                exception.ProblemDetails.Title.Should().NotBeNull();
+                exception.ProblemDetails.Type.Should().NotBeNull();
+                exception.ProblemDetails.Name.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
         public void When_command_endpoint_is_not_found_then_should_throw()
         {
             using (var client = _fixture.CreateHttpClient())
             {
-                Func<Task> act = () => client.PutCommand(new TestCommand(), Guid.NewGuid(), "notfoundpath");
+                Func<Task> act = () => client.PutCommand(new Command(), Guid.NewGuid(), "notfoundpath");
 
                 act.ShouldThrow<HttpRequestException>();
             }

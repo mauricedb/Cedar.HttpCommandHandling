@@ -3,7 +3,7 @@
  */
 
 // ReSharper disable once CheckNamespace
-namespace Cedar.HttpCommandHandling.Example.Commands.UnitTestinHandlers
+namespace Cedar.HttpCommandHandling.Example.UnitTestinHandlers
 {
     using System;
     using System.Threading;

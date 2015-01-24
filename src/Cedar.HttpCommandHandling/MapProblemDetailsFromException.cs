@@ -7,5 +7,5 @@ namespace Cedar.HttpCommandHandling
     /// </summary>
     /// <param name="exception">The exception to convert.</param>
     /// <returns>An <see cref="HttpProblemDetails"/>if it can be created, otherwise null.</returns>
-    public delegate HttpProblemDetails CreateProblemDetails(Exception exception);
+    public delegate HttpProblemDetails MapProblemDetailsFromException(Exception exception);
 }
