@@ -1,7 +1,7 @@
 # Cedar HttpCommandHandling
 [![Build status](https://ci.appveyor.com/api/projects/status/2p0cc1foi56t84jx/branch/master)](https://ci.appveyor.com/project/damianh/cedar-httpcommandhandling) [![NuGet Status](http://img.shields.io/nuget/v/Cedar.HttpCommandHandling.svg?style=flat)](https://www.nuget.org/packages/Cedar.HttpCommandHandling/) [![NuGet Status](http://img.shields.io/nuget/v/Cedar.HttpCommandHandling.Client.svg?style=flat)](https://www.nuget.org/packages/Cedar.HttpCommandHandling.Client/)
 
-Owin Middleware for handling commands, typically used in CQRS applications. Commands are treated as resources in their own right and are PUT ( `PUT http://example.com/commands/c9e714c8-c9c1-433b-bcc6-de971b384a03` _to encourage idempotent handling.
+Owin Middleware for handling commands, typically used in CQRS applications. Commands are treated as resources in their own right and are PUT (i.e. `PUT http://example.com/commands/c9e714c8-c9c1-433b-bcc6-de971b384a03`)to encourage idempotent handling.
 
 ### Features
 1. Simple way to wire up handlers for commands.
