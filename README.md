@@ -44,7 +44,7 @@ public class Server
 }
 
 /* In client code */
-using(var client = new HttpClient(){ BaseAddress = new Uri("http://localhost:8080) })
+using(var client = new HttpClient(){ BaseAddress = new Uri("http://localhost:8080") })
 {
     client.PutCommand(new MyCommand(), Guid.NewGuid());
 }
