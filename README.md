@@ -11,6 +11,7 @@ Owin Middleware for handling commands, typically used in CQRS applications. Comm
 5. Supports IETF HTTP Problem Details for errors (json only). Problem details are extendable and exceptions are re-raised when using .NET client. 
 6. Simple to test without any enviromental dependencies.
 7. Commands can be invoked embedded, in-mem and in-proc allowing the same pipeline to be invoked remote or embedded.
+8. No dependencies!
 
 ### Getting started.
 
