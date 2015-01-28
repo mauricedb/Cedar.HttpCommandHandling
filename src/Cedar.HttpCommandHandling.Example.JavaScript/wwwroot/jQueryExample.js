@@ -1,4 +1,5 @@
 ﻿$(function () {
+    'use strict';
 
     $('#btnAccepted').click(function () {
         sendCommand('Cedar.HttpCommandHandling.Example.JavaScript.CommandThatIsAccepted', { value: 'Data' });
@@ -19,6 +20,6 @@
             $('#result').text('Command Is Accepted');
         }, function (e) {
             console.log($('#result').text(e.responseText));
-        });;
+        });
     }
 });
